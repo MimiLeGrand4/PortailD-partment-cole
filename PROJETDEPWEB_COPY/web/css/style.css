@@ -12,7 +12,29 @@ html{
 
 }
 
-
+#pied {
+    height: 60px;
+    width: 450px;
+    clear: left;
+}
+#textePied {
+    text-align: left; 
+    margin-top: 10px;	
+    
+    font-size: 14px;
+}
+#dividerPied {
+    
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: black;
+  margin: 0;
+    
+    
+    
+}
 footer {
   height: 70px; 
 }
