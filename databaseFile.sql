@@ -34,7 +34,7 @@ CREATE TABLE tbl_evaluation(
     user_id int,
     projet_id int,
     note int(3),
-    commentaire text
+    commentaire text,
 
 
     CONSTRAINT PK_tbl_evaluation PRIMARY KEY
@@ -42,7 +42,7 @@ CREATE TABLE tbl_evaluation(
         user_id,
         projet_id 
     ),
-    FOREIGN KEY (projet_id) REFERENCES tbl_projet(projet_id)
+    FOREIGN KEY (projet_id) REFERENCES tbl_projet(projet_id),
     FOREIGN KEY (user_id) REFERENCES tbl_user(user_id)
 );
 
@@ -63,8 +63,8 @@ CREATE TABLE tbl_invite(
         user_id,
         projet_id 
     ),
-    FOREIGN KEY (projet_id) REFERENCES tbl_projet(projet_id)
-    FOREIGN KEY (user_id) REFERENCES tbl_user(user_id)
+    FOREIGN KEY (projet_id) REFERENCES tbl_projet(projet_id),
+    FOREIGN KEY (user_id) REFERENCES tbl_user(user_id),
     FOREIGN KEY (acces_id) REFERENCES tbl_acces(acces_id)
 );
 
@@ -80,7 +80,7 @@ CREATE TABLE tbl_post (
         post_id,
         projet_id 
     ),
-    FOREIGN KEY (projet_id) REFERENCES tbl_projet(projet_id)
+    FOREIGN KEY (projet_id) REFERENCES tbl_projet(projet_id),
     FOREIGN KEY (user_id) REFERENCES tbl_user(user_id)
 );
 
@@ -101,7 +101,7 @@ CREATE TABLE tbl_fichierPost(
         fichier_id,
         post_id 
     ),
-    FOREIGN KEY (post_id) REFERENCES tbl_post(post_id)
+    FOREIGN KEY (post_id) REFERENCES tbl_post(post_id),
     FOREIGN KEY (fichier_id) REFERENCES tbl_fichier(fichier_id)
 );
 
@@ -122,7 +122,7 @@ INSERT INTO tbl_accountType VALUES (
     'professeur'
 );
 INSERT INTO tbl_accountType VALUES (
-    3,
+    4,
     'ancienEtudiant'
 );
 
@@ -200,41 +200,41 @@ INSERT INTO tbl_post VALUES (
     1,
     "Premier post du projet pour daddy dini",
     3,
-    '20120618 10:34:09 AM'
+    STR_TO_DATE('2012-06-18 10:34:09', '%Y-%m-%d %H:%i:%s')
 );
 INSERT INTO tbl_post VALUES (
     2,
     1,
     "Ajout dans le projet",
     4,
-    '20120612 03:34:09 PM'
+    STR_TO_DATE('2012-06-12 15:34:09', '%Y-%m-%d %H:%i:%s')
 );
 
-INSERT INTO tbl_fichier(
+INSERT INTO tbl_fichier VALUES(
     1,
     "chat.png",
     "TestTestTestTest"
 );
-INSERT INTO tbl_fichier(
+INSERT INTO tbl_fichier VALUES(
     2,
     "rigolo.docx",
     "hahahahahah"
 );
-INSERT INTO tbl_fichier(
+INSERT INTO tbl_fichier VALUES(
     3,
     "betaDasa.sql",
     "Jesaispasquoimettre"
 );
 
-INSERT INTO tbl_fichierPost(
+INSERT INTO tbl_fichierPost VALUES(
     1,
     1
 );
-INSERT INTO tbl_fichierPost(
+INSERT INTO tbl_fichierPost VALUES(
     2,
     1
 );
-INSERT INTO tbl_fichierPost(
+INSERT INTO tbl_fichierPost VALUES(
     3,
     2
 );
