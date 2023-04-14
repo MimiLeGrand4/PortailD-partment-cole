@@ -6,6 +6,7 @@ package com.ralphchg.portaildepartementinformatique.model.dao;
 
 import com.ralphchg.portaildepartementinformatique.model.entities.Role;
 import com.ralphchg.portaildepartementinformatique.model.entities.Utilisateur;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,8 +16,12 @@ import java.util.Scanner;
  */
 public class UtilisateurImplDaoTest {
     public static void main(String[] args){
-       testFindAll();
-        //testAjouterEtudiant();
+    testFindAll();
+       // testAjouterEtudiant();
+     //testUpdateEtudiant();
+     // testDelete();
+     //testUpdateProf();
+     //testAjouterProf();
     }
      public static void testFindAll() {
         System.out.println("findAll");
@@ -33,23 +38,20 @@ public class UtilisateurImplDaoTest {
      
      
      public static void testAjouterEtudiant(){
-        System.out.println("create");
+        System.out.println("ajouter Etudiant");
         Utilisateur utilisateur = null;
         UtilisateurImplDao instance = new UtilisateurImplDao();
         Scanner lectureClavier = new Scanner(System.in);
 
 
         
-        System.out.println("Entrez le nom de l'utilisateur");
+        System.out.println("Entrez le nom de l'étudiant");
         String nom = lectureClavier.next();
         System.out.println("Entrez le prenom ");
         String prenom = lectureClavier.next();
         System.out.println("Entrez password");
         String password = lectureClavier.next();
         
-        
-       // System.out.println("Entrez email ");
-        //String email = lectureClavier.next();
       
         
         boolean active = false;
@@ -68,17 +70,129 @@ public class UtilisateurImplDaoTest {
         
    
      }
+     public static void testAjouterProf(){
+        System.out.println("ajouter Prof");
+        Utilisateur utilisateur = null;
+        UtilisateurImplDao instance = new UtilisateurImplDao();
+        Scanner lectureClavier = new Scanner(System.in);
 
+
+        
+        System.out.println("Entrez le nom du prof");
+        String nom = lectureClavier.next();
+        System.out.println("Entrez le prenom ");
+        String prenom = lectureClavier.next();
+        System.out.println("Entrez password");
+        String password = lectureClavier.next();
+        
+      
+        
+        boolean active = false;
+        int accountType_id = 2;
+        
+
+        utilisateur = new Utilisateur( active , nom, prenom , password , accountType_id );
+     
+        boolean result = instance.ajouterProfesseur(utilisateur);
+        if (result) {
+            System.out.println("insertion reussite");
+        } else {
+            System.out.println("insertion echec ");
+        }
+        
+        
+   
+     }
+
+        public static void testUpdateEtudiant(){
+            System.out.println("update Etudiant");
+            Utilisateur utilisateur = null;
+            UtilisateurImplDao instance = new UtilisateurImplDao();
+            Scanner lectureClavier = new Scanner(System.in);
+            System.out.println("Entrez l'id de l'étudiant à mettre à jour : ");
+            int id = lectureClavier.nextInt();
+            utilisateur = instance.findById(id);
+
+            if(utilisateur == null) {
+                System.out.println("L'étudiant n'existe pas !");
+                return;
+            }
+
+            System.out.println("Entrez le nom de l'étudiant");
+            String nom = lectureClavier.next();
+            utilisateur.setNom(nom);
+            System.out.println("Entrez le prénom ");
+            String prenom = lectureClavier.next();
+            utilisateur.setPrenom(prenom);
+            System.out.println("Entrez le mot de passe");
+            String password = lectureClavier.next();
+            utilisateur.setPassword(password);
+
+            boolean result = instance.updateEtudiant(utilisateur);
+            if (result) {
+                System.out.println("L'étudiant est mis à jour ");
+            } else {
+                System.out.println("Échec de mise à jour ");
+            }
+        }
+
+     public static void testUpdateProf(){
+            System.out.println("update Etudiant");
+            Utilisateur utilisateur = null;
+            UtilisateurImplDao instance = new UtilisateurImplDao();
+            Scanner lectureClavier = new Scanner(System.in);
+            System.out.println("Entrez l'id de l'utilisateur à mettre à jour : ");
+            int id = lectureClavier.nextInt();
+            utilisateur = instance.findById(id);
+
+            if(utilisateur == null) {
+                System.out.println("Le professeur n'existe pas !");
+                return;
+            }
+
+            System.out.println("Entrez le nom du prof");
+            String nom = lectureClavier.next();
+            utilisateur.setNom(nom);
+            System.out.println("Entrez le prénom ");
+            String prenom = lectureClavier.next();
+            utilisateur.setPrenom(prenom);
+            System.out.println("Entrez le mot de passe");
+            String password = lectureClavier.next();
+            utilisateur.setPassword(password);
+
+            boolean result = instance.updateProfesseur(utilisateur);
+            if (result) {
+                System.out.println("Le prof est mis à jour ");
+            } else {
+                System.out.println("Echec de mise à jour ");
+            }
+        }
+     
+    public static void testDelete() {
+        System.out.println("delete");
+        int id = 0;
+        UtilisateurImplDao instance = new UtilisateurImplDao();
+        Scanner lectureClavier = new Scanner(System.in);
+        
+            System.out.println("Entrez l'id de l'utilisateur : ");
+            id = lectureClavier.nextInt();
+
+        boolean result = instance.delete(id);
+        if (result) {
+            System.out.println("L'utilisateur dont l'id est " + id + " a été supprimé de la base de données.");
+        } else {
+            System.out.println("L'utilisateur dont l'id est " + id + " n'existe pas dans la base de données.");
+        }
+    }
+
+    
      
      
      
      
      
      
-     
-   /**
-     * Test of findById method, of class UtilisateurImplDao.
-     */
+
     public static void testFindById() {
         System.out.println("findById");
         int id = 0;
@@ -190,7 +304,7 @@ public class UtilisateurImplDaoTest {
         System.out.println("Entrez la photo");
         String photo = lectureClavier.next();
         utilisateur.setPhoto(photo);
-        // utilisateur = new Utilisateur(email, active, nom, prenom, password, photo);
+
         boolean result = instance.update(utilisateur);
         if (result) {
             System.out.println("L'utilisateur est mis à jour ");

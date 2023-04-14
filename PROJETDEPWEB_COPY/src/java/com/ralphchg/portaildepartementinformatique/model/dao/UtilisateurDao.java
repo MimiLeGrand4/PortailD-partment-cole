@@ -13,9 +13,7 @@ import java.util.List;
  * @author ralph
  */
 public interface UtilisateurDao {
-    List<Utilisateur> findAll();
 
-    Utilisateur findById(int id);
 
     Utilisateur findByName(String nom);
 
@@ -28,21 +26,25 @@ public interface UtilisateurDao {
     List<Utilisateur> findAllByNameRole(String nomRole);
 
     Utilisateur existsByEmailAndPassword(String email, String motDePasse);
-
-    
-    
-    boolean ajouterEtudiant(Utilisateur utilisateur);
-   
-    boolean updateEtudiant(Utilisateur utilisateur);
-    
-    
-  
-    boolean deleteAdmin(int id);
-    
-    
     boolean create(Utilisateur utilisateur);
 
     boolean create(Utilisateur utilisateur, String nomRol);
 
     boolean update(Utilisateur utilisateur);
+    
+    //Adapter ou Creer Par Vincent
+    
+    
+    List<Utilisateur> findAll();
+
+    Utilisateur findById(int id);
+    
+    boolean ajouterEtudiant(Utilisateur utilisateur);
+    boolean ajouterProfesseur(Utilisateur utilisateur);
+    boolean updateEtudiant(Utilisateur utilisateur);
+    boolean updateProfesseur(Utilisateur utilisateur);
+    boolean delete(int id);
+    
+    
+   
 }

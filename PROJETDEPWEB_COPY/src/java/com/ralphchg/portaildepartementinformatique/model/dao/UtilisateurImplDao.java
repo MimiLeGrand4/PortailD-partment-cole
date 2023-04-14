@@ -22,8 +22,7 @@ import java.util.logging.Logger;
  * @author ralph
  */
 public class UtilisateurImplDao implements UtilisateurDao {
-   // private static final String SQL_SELECT_UTILISATEURS="select * from utilisateurs";
-    private static final String SQL_SELECT_PAR_ID = "select * from utilisateurs where id = ?";
+
     private static final String SQL_SELECT_PAR_NOM = "select * from utilisateurs where nom = ?";
     private static final String SQL_SELECT_PAR_EMAIL = "select * from utilisateurs where email = ?";
     private static final String SQL_SELECT_ROLE = "select * from roles ";
@@ -42,26 +41,28 @@ public class UtilisateurImplDao implements UtilisateurDao {
     private static final String SQL_ACTIVER_CONTRAINTS = "SET FOREIGN_KEY_CHECKS = 1";
    
     //Adaptation des sqls avec notre BD
-    
+    private static final String SQL_SELECT_PAR_ID = "select * from tbl_user where user_id = ?";
     private static final String SQL_SELECT_UTILISATEURS="select * from tbl_user";
     
     
    //Admin privileges
     
-    private static final String SQL_AJOUTER_ETUDIANT = "INSERT INTO tbl_user (tuteur, nom, prenom, passwd, accountType_id) VALUES (?, ?, ?, ?, ?)";
-    private static final String SQL_AJOUTER_PROF = "INSERT INTO tbl_user (nom, prenom, accountType_id, passwd, tuteur)VALUES (?,?,3,?,FALSE)";
+    private static final String SQL_AJOUTER = "INSERT INTO tbl_user (tuteur, nom, prenom, passwd, accountType_id) VALUES (?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE_ETUDIANT="UPDATE tbl_user SET nom = ? , prenom=?, passwd=? WHERE user_id=? AND accountType_id=2";
     private static final String SQL_UPDATE_PROF="UPDATE tbl_user SET nom=?, prenom=?, passwd=? WHERE user_id=? AND accountType_id=3";
     
+
+
+    private static final String SQL_Delete1 = "DELETE FROM tbl_invite WHERE user_id = ?";
+    private static final String SQL_Delete2 = "DELETE FROM tbl_evaluation WHERE user_id = ?";
+    private static final String SQL_Delete3 = "DELETE FROM tbl_fichierPost WHERE post_id IN (SELECT post_id FROM tbl_post WHERE user_id = ?)";
+    private static final String SQL_Delete4 = "DELETE FROM tbl_post WHERE user_id = ?";
+    private static final String SQL_Delete5 = "DELETE FROM tbl_projet WHERE user_id = ?";
+    private static final String SQL_Delete6 = "DELETE FROM tbl_user WHERE user_id = ?";
+
     
-    private static final String SQL_DELETE_UTILISATEUR = 
-        "DELETE FROM tbl_invite WHERE user_id = ? " +
-        "DELETE FROM tbl_evaluation WHERE user_id = ? " +
-        "DELETE FROM tbl_post WHERE user_id = ? " +
-        "DELETE FROM tbl_fichierPost WHERE post_id IN (SELECT post_id FROM tbl_post WHERE user_id =?) " +
-        "DELETE FROM tbl_post WHERE user_id = ? " +
-        "DELETE FROM tbl_projet WHERE user_id = ? " +
-        "DELETE FROM tbl_user WHERE user_id = ?";
+    
+
 
     @Override
     public boolean ajouterEtudiant(Utilisateur utilisateur){
@@ -70,24 +71,23 @@ public class UtilisateurImplDao implements UtilisateurDao {
         PreparedStatement ps;
 
         try {
-            ps = ConnexionBD.getConnection().prepareStatement(SQL_AJOUTER_ETUDIANT);
+            ps = ConnexionBD.getConnection().prepareStatement(SQL_AJOUTER);
             //   Insérer les données dans la table parente, utilisateurs
             //ps.setString(1, utilisateur.getEmail());
                   ps.setBoolean(1,false);
                   ps.setString(2, utilisateur.getNom());
                   ps.setString(3, utilisateur.getPrenom());
                  ps.setString(4, utilisateur.getPassword());
-                 ps.setInt(5, 2);
+                 ps.setInt(5, 2); //accounType_id = 2 pour etudiant
 
             //ps.setString(6, utilisateur.getPhoto());
             nbLigne = ps.executeUpdate();
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
+         
             Logger.getLogger(UtilisateurImplDao.class.getName()).log(Level.SEVERE, null, e);
         }
 
-//		System.out.println("nb ligne " + nbLigne);
         if (nbLigne > 0) {
             retour = true;
         }
@@ -105,13 +105,112 @@ public class UtilisateurImplDao implements UtilisateurDao {
 
         try {
 
-            ps = ConnexionBD.getConnection().prepareStatement(SQL_UPDATE);
-            ps.setString(1, utilisateur.getEmail());
-            ps.setBoolean(2, utilisateur.isActive());
+            ps = ConnexionBD.getConnection().prepareStatement(SQL_UPDATE_ETUDIANT);
+                 ps.setString(1, utilisateur.getNom());
+                  ps.setString(2, utilisateur.getPrenom());
+                  ps.setString(3, utilisateur.getPassword());
+                     ps.setInt(4, utilisateur.getId());
 
-            ps.setString(3, utilisateur.getPassword());
+            nbLigne = ps.executeUpdate();
 
-            ps.setInt(4, utilisateur.getId());
+        } catch (SQLException e) {
+
+            Logger.getLogger(UtilisateurImplDao.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+
+        if (nbLigne > 0) {
+            retour = true;
+        }
+        ConnexionBD.closeConnection();
+        return retour;
+    }
+        @Override
+        public boolean delete(int id) {
+            boolean retour = false;
+            int nbLigne = 0;
+
+            try {
+                Connection conn = ConnexionBD.getConnection();
+
+                PreparedStatement ps1 = conn.prepareStatement(SQL_Delete1);
+                PreparedStatement ps2 = conn.prepareStatement(SQL_Delete2);
+                PreparedStatement ps3 = conn.prepareStatement(SQL_Delete3);
+                PreparedStatement ps4 = conn.prepareStatement(SQL_Delete4);
+                PreparedStatement ps5 = conn.prepareStatement(SQL_Delete5);
+                PreparedStatement ps6 = conn.prepareStatement(SQL_Delete6);
+
+                ps1.setInt(1, id);
+                ps2.setInt(1, id);
+                ps3.setInt(1, id);
+                ps4.setInt(1, id);
+                ps5.setInt(1, id);
+                ps6.setInt(1, id);
+
+                nbLigne += ps1.executeUpdate();
+                nbLigne += ps2.executeUpdate();
+                nbLigne += ps3.executeUpdate();
+                nbLigne += ps4.executeUpdate();
+                nbLigne += ps5.executeUpdate();
+                nbLigne += ps6.executeUpdate();
+
+                retour = nbLigne > 0;
+
+            } catch (SQLException ex) {
+                Logger.getLogger(UtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                ConnexionBD.closeConnection();
+            }
+
+            return retour;
+        }
+
+
+    @Override
+    public boolean ajouterProfesseur(Utilisateur utilisateur){
+           boolean retour = false;
+        int nbLigne = 0;
+        PreparedStatement ps;
+
+        try {
+            ps = ConnexionBD.getConnection().prepareStatement(SQL_AJOUTER);
+            //   Insérer les données dans la table parente, utilisateurs
+            //ps.setString(1, utilisateur.getEmail());
+                  ps.setBoolean(1,false);
+                  ps.setString(2, utilisateur.getNom());
+                  ps.setString(3, utilisateur.getPrenom());
+                 ps.setString(4, utilisateur.getPassword());
+                 ps.setInt(5, 3); //accountType_id = 3 pour prof
+
+            //ps.setString(6, utilisateur.getPhoto());
+            nbLigne = ps.executeUpdate();
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            Logger.getLogger(UtilisateurImplDao.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+//		System.out.println("nb ligne " + nbLigne);
+        if (nbLigne > 0) {
+            retour = true;
+        }
+        ConnexionBD.closeConnection();
+        
+        return retour;
+    }
+            @Override
+    public boolean updateProfesseur(Utilisateur utilisateur) {
+         boolean retour = false;
+        int nbLigne = 0;
+        PreparedStatement ps;
+
+        try {
+
+            ps = ConnexionBD.getConnection().prepareStatement(SQL_UPDATE_PROF);
+                 ps.setString(1, utilisateur.getNom());
+                  ps.setString(2, utilisateur.getPrenom());
+                  ps.setString(3, utilisateur.getPassword());
+                     ps.setInt(4, utilisateur.getId());
 
             nbLigne = ps.executeUpdate();
 
@@ -127,32 +226,6 @@ public class UtilisateurImplDao implements UtilisateurDao {
         ConnexionBD.closeConnection();
         return retour;
     }
-    @Override
-   public boolean deleteAdmin(int id) {
-       boolean retour = false;
-       int nbLigne = 0;
-
-       try {
-           PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_DELETE_UTILISATEUR);
-
-           // Set the user_id parameter in the SQL statement
-           ps.setInt(1, id);
-
-           // Execute the SQL statement
-           nbLigne = ps.executeUpdate();
-
-       } catch (SQLException ex) {
-           Logger.getLogger(UtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
-       }
-
-       if (nbLigne > 0) {
-           retour = true;
-       }
-       ConnexionBD.closeConnection();
-       return retour;
-   }
-
-    
     @Override
     public List<Utilisateur> findAll() {
         List<Utilisateur> listeUtilisateur = null;
@@ -187,26 +260,21 @@ public class UtilisateurImplDao implements UtilisateurDao {
         Utilisateur utilisateur = null;
         try {
 
-            //Initialise la requête préparée basée sur la connexion
-            // la requête SQL passé en argument pour construire l'objet preparedStatement
+ 
             PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_PAR_ID);
-            // on initialise la propriété id du bean avec sa valeur
+
             ps.setInt(1, id);
-            //On execute la requête et on récupère les résultats dans la requête 
-            // dans ResultSet
+
             ResultSet result = ps.executeQuery();
 
-            //// la méthode next() pour se déplacer sur l'enregistrement suivant
-            //on parcours ligne par ligne les résultas retournés
             while (result.next()) {
                 utilisateur = new Utilisateur();
-                utilisateur.setId(result.getInt("id"));
-                utilisateur.setEmail(result.getString("email"));
-                utilisateur.setActive(result.getBoolean("active"));
-                utilisateur.setNom(result.getString("nom"));
+                  utilisateur.setId(result.getInt("user_id"));
+                 utilisateur.setActive(result.getBoolean("tuteur"));
                 utilisateur.setPrenom(result.getString("prenom"));
-                utilisateur.setPassword(result.getString("password"));
-                utilisateur.setPhoto(result.getString("photo"));
+                utilisateur.setNom(result.getString("nom"));
+                utilisateur.setPassword(result.getString("passwd"));
+                utilisateur.setAccountType_id(result.getInt("accountType_id"));
 
             };
         } catch (SQLException ex) {
