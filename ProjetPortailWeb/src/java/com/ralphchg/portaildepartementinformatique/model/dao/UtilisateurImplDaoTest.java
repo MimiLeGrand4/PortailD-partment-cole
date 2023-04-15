@@ -4,19 +4,17 @@
  */
 package com.ralphchg.portaildepartementinformatique.model.dao;
 
+import com.ralphchg.portaildepartementinformatique.model.entities.Fichier;
 import com.ralphchg.portaildepartementinformatique.model.entities.Role;
 import com.ralphchg.portaildepartementinformatique.model.entities.Utilisateur;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- *
- * @author ralph
- */
+
 public class UtilisateurImplDaoTest {
     public static void main(String[] args){
-    testFindAll();
+    //testFindAll();
+    testFindAllFichiers();
        // testAjouterEtudiant();
      //testUpdateEtudiant();
      // testDelete();
@@ -33,6 +31,15 @@ public class UtilisateurImplDaoTest {
         }
     }
      
+          public static void testFindAllFichiers() {
+        System.out.println("findAllFichiers");
+        UtilisateurImplDao instance = new UtilisateurImplDao();
+        List<Fichier> result = instance.findAllFichiers();
+        System.out.println(result.get(0).afficherTitreDesColonnes());
+        for (Fichier fichier : result) {
+            System.out.println(fichier.toString());
+        }
+    }
      
      
      
@@ -296,7 +303,7 @@ public class UtilisateurImplDaoTest {
         System.out.println("L'utilisateur est-il actif(oui/non)?");
         String reponse = lectureClavier.next();
         boolean active = reponse.equals("oui") ? true : false;
-        utilisateur.setActive(active);
+        utilisateur.setTuteur(active);
 
         System.out.println("Entrez password");
         String password = lectureClavier.next();

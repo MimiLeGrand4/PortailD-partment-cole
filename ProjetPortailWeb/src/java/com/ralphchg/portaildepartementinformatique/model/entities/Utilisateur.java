@@ -15,7 +15,7 @@ import java.util.List;
 public class Utilisateur implements Serializable {
     private int id;
     private String email;
-    private boolean active;
+    private boolean tuteur;
     private String nom;
     private String prenom;
     private String password;
@@ -51,7 +51,7 @@ public class Utilisateur implements Serializable {
     public Utilisateur(String email, boolean active, String nom, String prenom, String password, String photo) {
 
         this.email = email;
-        this.active = active;
+        this.tuteur = active;
         this.nom = nom;
         this.prenom = prenom;
         this.password = password;
@@ -63,7 +63,7 @@ public class Utilisateur implements Serializable {
     public Utilisateur(int id, String email, boolean active, String nom, String prenom, String password, String photo) {
         this.id = id;
         this.email = email;
-        this.active = active;
+        this.tuteur = active;
         this.nom = nom;
         this.prenom = prenom;
         this.password = password;
@@ -120,12 +120,12 @@ public class Utilisateur implements Serializable {
         this.photo = photo;
     }
 
-    public boolean isActive() {
-        return active;
+    public boolean isTuteur() {
+        return tuteur;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setTuteur(boolean tuteur) {
+        this.tuteur = tuteur;
     }
 
     public List<Projet> getProjets() {
@@ -144,7 +144,7 @@ public class Utilisateur implements Serializable {
     }
 
     public Utilisateur(boolean active, String nom, String prenom, String password, int accountType_id) {
-        this.active = active;
+        this.tuteur = active;
         this.nom = nom;
         this.prenom = prenom;
         this.password = password;
@@ -170,7 +170,7 @@ public class Utilisateur implements Serializable {
     @Override
        public String toString() {
          String message = "";
-       message = String.format(" %-10d  %30s %15b %15s %15s %15s %15s %15s ",this.id,this.email, this.active,this.nom,this.prenom,
+       message = String.format(" %-10d  %30s %15b %15s %15s %15s %15s %15s ",this.id,this.email, this.tuteur,this.nom,this.prenom,
                     this.password, this.photo, this.accountType_id); 
        return message;
     }

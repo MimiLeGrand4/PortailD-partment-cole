@@ -4,6 +4,7 @@
  */
 package com.ralphchg.portaildepartementinformatique.model.dao;
 
+import com.ralphchg.portaildepartementinformatique.model.entities.Fichier;
 import com.ralphchg.portaildepartementinformatique.model.entities.Projet;
 import com.ralphchg.portaildepartementinformatique.model.entities.Role;
 import com.ralphchg.portaildepartementinformatique.model.entities.Utilisateur;
@@ -17,10 +18,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author ralph
- */
+
 public class UtilisateurImplDao implements UtilisateurDao {
 
     private static final String SQL_SELECT_PAR_NOM = "select * from utilisateurs where nom = ?";
@@ -51,8 +49,14 @@ public class UtilisateurImplDao implements UtilisateurDao {
     private static final String SQL_UPDATE_ETUDIANT="UPDATE tbl_user SET nom = ? , prenom=?, passwd=? WHERE user_id=? AND accountType_id=2";
     private static final String SQL_UPDATE_PROF="UPDATE tbl_user SET nom=?, prenom=?, passwd=? WHERE user_id=? AND accountType_id=3";
     
-
-
+    private static final String SQL_Ajouter_Notes_de_Cours="INSERT INTO tbl_fichier (fichier_id, fichier_nom, contenu) VALUES (? ,? ,?)";
+    private static final String SQL_Update_Notes_de_Cours="UPDATE tbl_fichier SET fichier_nom=?, contenu=? WHERE fichier_id=?";
+    private static final String SQL_Delete_Notes_de_Cours="DELETE FROM tbl_fichier WHERE fichier_id = ?";
+    
+    private static final String SQL_SELECT_FICHIERS="select * from tbl_fichier";
+    
+    
+    //Delete un utilisateur au complet
     private static final String SQL_Delete1 = "DELETE FROM tbl_invite WHERE user_id = ?";
     private static final String SQL_Delete2 = "DELETE FROM tbl_evaluation WHERE user_id = ?";
     private static final String SQL_Delete3 = "DELETE FROM tbl_fichierPost WHERE post_id IN (SELECT post_id FROM tbl_post WHERE user_id = ?)";
@@ -61,7 +65,32 @@ public class UtilisateurImplDao implements UtilisateurDao {
     private static final String SQL_Delete6 = "DELETE FROM tbl_user WHERE user_id = ?";
 
     
-    
+    @Override
+    public boolean ajouterNotesDeCours(Fichier fichier){
+             boolean retour = false;
+        int nbLigne = 0;
+        PreparedStatement ps;
+
+        try {
+            ps = ConnexionBD.getConnection().prepareStatement(SQL_Ajouter_Notes_de_Cours);
+             ps.setInt(1, fichier.getId());
+          ps.setString(2, fichier.getNom());
+            ps.setString(3, fichier.getContenu());
+            nbLigne = ps.executeUpdate();
+
+        } catch (SQLException e) {
+         
+            Logger.getLogger(UtilisateurImplDao.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        if (nbLigne > 0) {
+            retour = true;
+        }
+        ConnexionBD.closeConnection();
+        
+        return retour;
+}
+
 
 
     @Override
@@ -237,7 +266,7 @@ public class UtilisateurImplDao implements UtilisateurDao {
             while(result.next()){
                 Utilisateur utilisateur = new Utilisateur();
                  utilisateur.setId(result.getInt("user_id"));
-                 utilisateur.setActive(result.getBoolean("tuteur"));
+                 utilisateur.setTuteur(result.getBoolean("tuteur"));
                 utilisateur.setPrenom(result.getString("prenom"));
                 utilisateur.setNom(result.getString("nom"));
                 utilisateur.setPassword(result.getString("passwd"));
@@ -254,7 +283,31 @@ public class UtilisateurImplDao implements UtilisateurDao {
         ConnexionBD.closeConnection();
         return listeUtilisateur;
     }
+    @Override
+    public List<Fichier> findAllFichiers() {
+        List<Fichier> listeFichier = null;
+        try {
+            
+            PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_FICHIERS);
+            ResultSet result = ps.executeQuery();
+            listeFichier = new ArrayList();
+            while(result.next()){
+                 Fichier fichier = new Fichier();
+                 fichier.setId(result.getInt("fichier_id"));
+                 fichier.setNom(result.getString("fichier_nom"));
+                 fichier.setContenu(result.getString("contenu"));
+                 listeFichier.add(fichier);
 
+               
+                
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ConnexionBD.closeConnection();
+        return listeFichier;
+    }
     @Override
     public Utilisateur findById(int id) {
         Utilisateur utilisateur = null;
@@ -270,7 +323,7 @@ public class UtilisateurImplDao implements UtilisateurDao {
             while (result.next()) {
                 utilisateur = new Utilisateur();
                   utilisateur.setId(result.getInt("user_id"));
-                 utilisateur.setActive(result.getBoolean("tuteur"));
+                 utilisateur.setTuteur(result.getBoolean("tuteur"));
                 utilisateur.setPrenom(result.getString("prenom"));
                 utilisateur.setNom(result.getString("nom"));
                 utilisateur.setPassword(result.getString("passwd"));
@@ -305,7 +358,7 @@ public class UtilisateurImplDao implements UtilisateurDao {
                 utilisateur = new Utilisateur();
                 utilisateur.setId(result.getInt("id"));
                 utilisateur.setEmail(result.getString("email"));
-                utilisateur.setActive(result.getBoolean("active"));
+                utilisateur.setTuteur(result.getBoolean("active"));
                 utilisateur.setNom(result.getString("nom"));
                 utilisateur.setPrenom(result.getString("prenom"));
                 utilisateur.setPassword(result.getString("password"));
@@ -340,7 +393,7 @@ public class UtilisateurImplDao implements UtilisateurDao {
                 utilisateur = new Utilisateur();
                 utilisateur.setId(result.getInt("id"));
                 utilisateur.setEmail(result.getString("email"));
-                utilisateur.setActive(result.getBoolean("active"));
+                utilisateur.setTuteur(result.getBoolean("active"));
                 utilisateur.setNom(result.getString("nom"));
                 utilisateur.setPrenom(result.getString("prenom"));
                 utilisateur.setPassword(result.getString("password"));
@@ -385,7 +438,7 @@ public class UtilisateurImplDao implements UtilisateurDao {
             ps = ConnexionBD.getConnection().prepareStatement(SQL_INSERT_UTILISATEUR);
             //   Insérer les données dans la table parente, utilisateurs
             ps.setString(1, utilisateur.getEmail());
-            ps.setBoolean(2, utilisateur.isActive());
+            ps.setBoolean(2, utilisateur.isTuteur());
             ps.setString(3, utilisateur.getNom());
             ps.setString(4, utilisateur.getPrenom());
 
@@ -442,7 +495,7 @@ public class UtilisateurImplDao implements UtilisateurDao {
             //   Insérer les données dans la table parente, utilisateurs
          
             ps.setString(1, utilisateur.getEmail());
-            ps.setBoolean(2, utilisateur.isActive());
+            ps.setBoolean(2, utilisateur.isTuteur());
             ps.setString(3, utilisateur.getNom());
             ps.setString(4, utilisateur.getPrenom());
 
@@ -508,7 +561,7 @@ public class UtilisateurImplDao implements UtilisateurDao {
 
             ps = ConnexionBD.getConnection().prepareStatement(SQL_UPDATE);
             ps.setString(1, utilisateur.getEmail());
-            ps.setBoolean(2, utilisateur.isActive());
+            ps.setBoolean(2, utilisateur.isTuteur());
 
             ps.setString(3, utilisateur.getPassword());
 

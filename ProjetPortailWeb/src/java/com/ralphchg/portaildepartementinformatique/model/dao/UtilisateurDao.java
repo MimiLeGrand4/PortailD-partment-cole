@@ -4,14 +4,12 @@
  */
 package com.ralphchg.portaildepartementinformatique.model.dao;
 
+import com.ralphchg.portaildepartementinformatique.model.entities.Fichier;
 import com.ralphchg.portaildepartementinformatique.model.entities.Role;
 import com.ralphchg.portaildepartementinformatique.model.entities.Utilisateur;
 import java.util.List;
 
-/**
- *
- * @author ralph
- */
+
 public interface UtilisateurDao {
 
 
@@ -34,13 +32,14 @@ public interface UtilisateurDao {
     
     //Adapter ou Creer Par Vincent
     
-    
+    List<Fichier> findAllFichiers();
     List<Utilisateur> findAll();
 
     Utilisateur findById(int id);
     
     boolean ajouterEtudiant(Utilisateur utilisateur);
     boolean ajouterProfesseur(Utilisateur utilisateur);
+    boolean ajouterNotesDeCours(Fichier ficher);
     boolean updateEtudiant(Utilisateur utilisateur);
     boolean updateProfesseur(Utilisateur utilisateur);
     boolean delete(int id);
