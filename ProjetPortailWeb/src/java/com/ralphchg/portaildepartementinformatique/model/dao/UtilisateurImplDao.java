@@ -21,8 +21,6 @@ import java.util.logging.Logger;
 
 public class UtilisateurImplDao implements UtilisateurDao {
 
-    private static final String SQL_SELECT_PAR_NOM = "select * from utilisateurs where nom = ?";
-    private static final String SQL_SELECT_PAR_EMAIL = "select * from utilisateurs where email = ?";
     private static final String SQL_SELECT_ROLE = "select * from roles ";
     private static final String SQL_SELECT_Project = "select * from projets";
     private static final String SQL_SELECT_ROLE_PAR_NOM_ROLE = "select * from roles where nom = ? ";
@@ -41,15 +39,16 @@ public class UtilisateurImplDao implements UtilisateurDao {
     //Adaptation des sqls avec notre BD
     private static final String SQL_SELECT_PAR_ID = "select * from tbl_user where user_id = ?";
     private static final String SQL_SELECT_UTILISATEURS="select * from tbl_user";
-    
-    
+   
+    private static final String SQL_SELECT_PAR_NOM = "SELECT * FROM tbl_user WHERE nom = ?";
+    private static final String SQL_SELECT_PAR_EMAIL = "SELECT * FROM tbl_user WHERE email = ?";
    //Admin privileges
     
     private static final String SQL_AJOUTER = "INSERT INTO tbl_user (tuteur, nom, prenom, passwd, accountType_id) VALUES (?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE_ETUDIANT="UPDATE tbl_user SET nom = ? , prenom=?, passwd=? WHERE user_id=? AND accountType_id=2";
     private static final String SQL_UPDATE_PROF="UPDATE tbl_user SET nom=?, prenom=?, passwd=? WHERE user_id=? AND accountType_id=3";
     
-    private static final String SQL_Ajouter_Notes_de_Cours="INSERT INTO tbl_fichier (fichier_id, fichier_nom, contenu) VALUES (? ,? ,?)";
+    private static final String SQL_Ajouter_Notes_de_Cours="INSERT INTO tbl_fichier (fichier_nom, contenu) VALUES (? ,?)";
     private static final String SQL_Update_Notes_de_Cours="UPDATE tbl_fichier SET fichier_nom=?, contenu=? WHERE fichier_id=?";
     private static final String SQL_Delete_Notes_de_Cours="DELETE FROM tbl_fichier WHERE fichier_id = ?";
     
@@ -73,9 +72,8 @@ public class UtilisateurImplDao implements UtilisateurDao {
 
         try {
             ps = ConnexionBD.getConnection().prepareStatement(SQL_Ajouter_Notes_de_Cours);
-             ps.setInt(1, fichier.getId());
-          ps.setString(2, fichier.getNom());
-            ps.setString(3, fichier.getContenu());
+          ps.setString(1, fichier.getNom());
+            ps.setString(2, fichier.getContenu());
             nbLigne = ps.executeUpdate();
 
         } catch (SQLException e) {

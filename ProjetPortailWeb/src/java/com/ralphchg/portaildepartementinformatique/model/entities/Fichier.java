@@ -16,6 +16,14 @@ public class Fichier {
     public int getId() {
         return id;
     }
+
+    public Fichier() {
+    }
+
+    public Fichier(String nom, String contenu) {
+        this.nom = nom;
+        this.contenu = contenu;
+    }
     
     public void setId(int id) {
         this.id = id;
@@ -38,7 +46,7 @@ public class Fichier {
     }
              public String afficherTitreDesColonnes() {
          String message = "";
-       message = String.format(" %-10s  %10s  %10s","Id","Nom","Contenu"); 
+       message = String.format(" %-10s  %-10s  %-30s","Id","Nom","Contenu"); 
        message+="\n --------------------------------------------------------------------------------";
        return message;
     }
@@ -46,7 +54,7 @@ public class Fichier {
     @Override
        public String toString() {
          String message = "";
-       message += String.format(" %-5d  %10s %10s ",this.id,this.nom, this.contenu); 
+       message += String.format(" %-5d  %10s %25s ",this.id,this.nom, this.contenu); 
        return message;
     }
 }

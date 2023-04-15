@@ -20,6 +20,8 @@ public class UtilisateurImplDaoTest {
      // testDelete();
      //testUpdateProf();
      //testAjouterProf();
+     //testAjouterNotesDeCours();
+     
     }
      public static void testFindAll() {
         System.out.println("findAll");
@@ -42,7 +44,32 @@ public class UtilisateurImplDaoTest {
     }
      
      
+         public static void testAjouterNotesDeCours(){
+        System.out.println("ajouter Fichier/Notes de cours");
+        Fichier fichier = null;
+        UtilisateurImplDao instance = new UtilisateurImplDao();
+        Scanner lectureClavier = new Scanner(System.in);
+
+
+        
+        System.out.println("Entrez le nom du fichier");
+        String nom = lectureClavier.next();
+        System.out.println("Entrez le contenu ");
+        String contenu = lectureClavier.next();
+
+
+        fichier = new Fichier( nom, contenu );
      
+        boolean result = instance.ajouterNotesDeCours(fichier);
+        if (result) {
+            System.out.println("insertion reussite");
+        } else {
+            System.out.println("insertion echec ");
+        }
+        
+        
+   
+     }
      
      public static void testAjouterEtudiant(){
         System.out.println("ajouter Etudiant");
