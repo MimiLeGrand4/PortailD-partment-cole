@@ -14,13 +14,18 @@ import java.util.Scanner;
 public class UtilisateurImplDaoTest {
     public static void main(String[] args){
     //testFindAll();
-    testFindAllFichiers();
+   //testFindAllFichiers();
+  
+  
+  
        // testAjouterEtudiant();
      //testUpdateEtudiant();
      // testDelete();
      //testUpdateProf();
      //testAjouterProf();
      //testAjouterNotesDeCours();
+     //testUpdateNotesDeCours();
+    // testDeleteNotesDeCours();
      
     }
      public static void testFindAll() {
@@ -32,45 +37,9 @@ public class UtilisateurImplDaoTest {
             System.out.println(utilisateur.toString());
         }
     }
-     
-          public static void testFindAllFichiers() {
-        System.out.println("findAllFichiers");
-        UtilisateurImplDao instance = new UtilisateurImplDao();
-        List<Fichier> result = instance.findAllFichiers();
-        System.out.println(result.get(0).afficherTitreDesColonnes());
-        for (Fichier fichier : result) {
-            System.out.println(fichier.toString());
-        }
-    }
-     
-     
-         public static void testAjouterNotesDeCours(){
-        System.out.println("ajouter Fichier/Notes de cours");
-        Fichier fichier = null;
-        UtilisateurImplDao instance = new UtilisateurImplDao();
-        Scanner lectureClavier = new Scanner(System.in);
 
-
-        
-        System.out.println("Entrez le nom du fichier");
-        String nom = lectureClavier.next();
-        System.out.println("Entrez le contenu ");
-        String contenu = lectureClavier.next();
-
-
-        fichier = new Fichier( nom, contenu );
      
-        boolean result = instance.ajouterNotesDeCours(fichier);
-        if (result) {
-            System.out.println("insertion reussite");
-        } else {
-            System.out.println("insertion echec ");
-        }
-        
-        
-   
-     }
-     
+
      public static void testAjouterEtudiant(){
         System.out.println("ajouter Etudiant");
         Utilisateur utilisateur = null;

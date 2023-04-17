@@ -39,7 +39,6 @@ public class UtilisateurImplDao implements UtilisateurDao {
     //Adaptation des sqls avec notre BD
     private static final String SQL_SELECT_PAR_ID = "select * from tbl_user where user_id = ?";
     private static final String SQL_SELECT_UTILISATEURS="select * from tbl_user";
-   
     private static final String SQL_SELECT_PAR_NOM = "SELECT * FROM tbl_user WHERE nom = ?";
     private static final String SQL_SELECT_PAR_EMAIL = "SELECT * FROM tbl_user WHERE email = ?";
    //Admin privileges
@@ -47,13 +46,7 @@ public class UtilisateurImplDao implements UtilisateurDao {
     private static final String SQL_AJOUTER = "INSERT INTO tbl_user (tuteur, nom, prenom, passwd, accountType_id) VALUES (?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE_ETUDIANT="UPDATE tbl_user SET nom = ? , prenom=?, passwd=? WHERE user_id=? AND accountType_id=2";
     private static final String SQL_UPDATE_PROF="UPDATE tbl_user SET nom=?, prenom=?, passwd=? WHERE user_id=? AND accountType_id=3";
-    
-    private static final String SQL_Ajouter_Notes_de_Cours="INSERT INTO tbl_fichier (fichier_nom, contenu) VALUES (? ,?)";
-    private static final String SQL_Update_Notes_de_Cours="UPDATE tbl_fichier SET fichier_nom=?, contenu=? WHERE fichier_id=?";
-    private static final String SQL_Delete_Notes_de_Cours="DELETE FROM tbl_fichier WHERE fichier_id = ?";
-    
-    private static final String SQL_SELECT_FICHIERS="select * from tbl_fichier";
-    
+
     
     //Delete un utilisateur au complet
     private static final String SQL_Delete1 = "DELETE FROM tbl_invite WHERE user_id = ?";
@@ -62,32 +55,6 @@ public class UtilisateurImplDao implements UtilisateurDao {
     private static final String SQL_Delete4 = "DELETE FROM tbl_post WHERE user_id = ?";
     private static final String SQL_Delete5 = "DELETE FROM tbl_projet WHERE user_id = ?";
     private static final String SQL_Delete6 = "DELETE FROM tbl_user WHERE user_id = ?";
-
-    
-    @Override
-    public boolean ajouterNotesDeCours(Fichier fichier){
-             boolean retour = false;
-        int nbLigne = 0;
-        PreparedStatement ps;
-
-        try {
-            ps = ConnexionBD.getConnection().prepareStatement(SQL_Ajouter_Notes_de_Cours);
-          ps.setString(1, fichier.getNom());
-            ps.setString(2, fichier.getContenu());
-            nbLigne = ps.executeUpdate();
-
-        } catch (SQLException e) {
-         
-            Logger.getLogger(UtilisateurImplDao.class.getName()).log(Level.SEVERE, null, e);
-        }
-
-        if (nbLigne > 0) {
-            retour = true;
-        }
-        ConnexionBD.closeConnection();
-        
-        return retour;
-}
 
 
 
@@ -99,7 +66,7 @@ public class UtilisateurImplDao implements UtilisateurDao {
 
         try {
             ps = ConnexionBD.getConnection().prepareStatement(SQL_AJOUTER);
-            //   Insérer les données dans la table parente, utilisateurs
+
             //ps.setString(1, utilisateur.getEmail());
                   ps.setBoolean(1,false);
                   ps.setString(2, utilisateur.getNom());
@@ -201,7 +168,7 @@ public class UtilisateurImplDao implements UtilisateurDao {
 
         try {
             ps = ConnexionBD.getConnection().prepareStatement(SQL_AJOUTER);
-            //   Insérer les données dans la table parente, utilisateurs
+
             //ps.setString(1, utilisateur.getEmail());
                   ps.setBoolean(1,false);
                   ps.setString(2, utilisateur.getNom());
@@ -213,11 +180,9 @@ public class UtilisateurImplDao implements UtilisateurDao {
             nbLigne = ps.executeUpdate();
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             Logger.getLogger(UtilisateurImplDao.class.getName()).log(Level.SEVERE, null, e);
         }
 
-//		System.out.println("nb ligne " + nbLigne);
         if (nbLigne > 0) {
             retour = true;
         }
@@ -242,7 +207,6 @@ public class UtilisateurImplDao implements UtilisateurDao {
             nbLigne = ps.executeUpdate();
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             Logger.getLogger(UtilisateurImplDao.class.getName()).log(Level.SEVERE, null, e);
         }
 
@@ -281,31 +245,7 @@ public class UtilisateurImplDao implements UtilisateurDao {
         ConnexionBD.closeConnection();
         return listeUtilisateur;
     }
-    @Override
-    public List<Fichier> findAllFichiers() {
-        List<Fichier> listeFichier = null;
-        try {
-            
-            PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_FICHIERS);
-            ResultSet result = ps.executeQuery();
-            listeFichier = new ArrayList();
-            while(result.next()){
-                 Fichier fichier = new Fichier();
-                 fichier.setId(result.getInt("fichier_id"));
-                 fichier.setNom(result.getString("fichier_nom"));
-                 fichier.setContenu(result.getString("contenu"));
-                 listeFichier.add(fichier);
 
-               
-                
-            }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(UtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        ConnexionBD.closeConnection();
-        return listeFichier;
-    }
     @Override
     public Utilisateur findById(int id) {
         Utilisateur utilisateur = null;

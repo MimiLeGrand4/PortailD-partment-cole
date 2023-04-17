@@ -13,9 +13,7 @@ public class Fichier {
     private String nom;
     private String contenu;
     
-    public int getId() {
-        return id;
-    }
+
 
     public Fichier() {
     }
@@ -25,6 +23,9 @@ public class Fichier {
         this.contenu = contenu;
     }
     
+    public int getId() {
+        return id;
+    }
     public void setId(int id) {
         this.id = id;
     }
