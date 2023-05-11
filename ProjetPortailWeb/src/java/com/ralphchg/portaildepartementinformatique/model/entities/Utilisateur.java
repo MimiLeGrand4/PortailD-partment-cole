@@ -48,6 +48,12 @@ public class Utilisateur implements Serializable {
         roles = new ArrayList();
     }
 
+    public Utilisateur(int id, String nom, String prenom) {
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+    }
+
     public Utilisateur(String email, boolean active, String nom, String prenom, String password, String photo) {
 
         this.email = email;

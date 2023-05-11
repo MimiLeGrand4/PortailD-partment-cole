@@ -21,22 +21,82 @@ public class UtilisateurService {
      UtilisateurImplDao dao = new UtilisateurImplDao();
    List<Role> listRoles=null;
 
+   
+   public boolean modifierUnEtudiant(Utilisateur utilisateur){
+          if ( dao.updateEtudiant(utilisateur)) {
+             retour = true;
+        }
+       return retour;
+
+   }
+   public boolean modifierUnProf(Utilisateur utilisateur){
+       if ( dao.updateProfesseur(utilisateur)) {
+             retour = true;
+        }
+       return retour;
+   }
+
+   
+    public boolean supprimerUnUtilisateur(int id){
+           if(dao.delete(id)){
+            retour = true;
+          }
+    return retour;
+}
+   
+   
+   public boolean ajouterUnEtudiant(Utilisateur utilisateur){
+       if ( dao.ajouterEtudiant(utilisateur)) {
+             retour = true;
+        }
+    
+       return retour;
+   }
+   
+   
+   public boolean ajouterUnProf(Utilisateur utilisateur){
+       if ( dao.ajouterProfesseur(utilisateur)) {
+             retour = true;
+        }
+    
+       return retour;
+   }
+   
     public List<Utilisateur> afficherLesUtilisateurs() {
         listeUtilisateurs = dao.findAll();
         return listeUtilisateurs;
     }
-  public List<Role> afficherLesLesRoles() {
-         listRoles = dao.findAllRole();
+    public List<Role> afficherTypesComptes() {
+         listRoles = dao.findAllComptes();
         return listRoles;
     }
-    public Utilisateur chercherUtilisateurParNom(String nom) {
+   
+   
+   
+       public Utilisateur chercherUtilisateurParNom(String nom) {
        utilisateur = dao.findByName(nom);
         return utilisateur;
     }
-public Utilisateur chercherUtilisateurParID(int id) {
+   
+   
+   public Utilisateur chercherUtilisateurParID(int id) {
        utilisateur = dao.findById(id);
         return utilisateur;
     }
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+
+
 
     public Utilisateur chercherUtilisateurParNomRole(String nomRole) {
         utilisateur  = dao.findByNameRole(nomRole);
@@ -52,12 +112,7 @@ public Utilisateur chercherUtilisateurParID(int id) {
         return utilisateur;
     }
 
- public boolean supprimerUnUtilisateur(int id){
-           if(dao.delete(id)){
-            retour = true;
-          }
-    return retour;
-}
+
     public boolean ajouterUnUtilisateurUnRole(Utilisateur utilisateur, String nomRole) {
         
     

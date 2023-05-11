@@ -13,12 +13,13 @@ import java.util.Scanner;
 
 public class UtilisateurImplDaoTest {
     public static void main(String[] args){
-    //testFindAll();
+   testFindAll();
    //testFindAllFichiers();
   
+
+
   
-  
-       // testAjouterEtudiant();
+        //testAjouterEtudiant();
      //testUpdateEtudiant();
      // testDelete();
      //testUpdateProf();
@@ -26,7 +27,8 @@ public class UtilisateurImplDaoTest {
      //testAjouterNotesDeCours();
      //testUpdateNotesDeCours();
     // testDeleteNotesDeCours();
-     
+     //testFindAllRole();
+    //testFindByName();
     }
      public static void testFindAll() {
         System.out.println("findAll");
@@ -189,8 +191,7 @@ public class UtilisateurImplDaoTest {
     }
 
     
-     
-     
+
      
      
      
@@ -360,10 +361,10 @@ public class UtilisateurImplDaoTest {
     }
     
      public static void testFindAllRole() {
-        System.out.println("findAllRole");
+        System.out.println("findAllComptes");
         UtilisateurImplDao instance = new UtilisateurImplDao();
     
-        List<Role> result = instance.findAllRole();
+        List<Role> result = instance.findAllComptes();
          System.out.println(result.get(1).afficherTitreDesColonnes());
          for (Role role : result) {
                  System.out.println(role.toString());

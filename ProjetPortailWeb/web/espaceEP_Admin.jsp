@@ -60,7 +60,7 @@ and open the template in the editor.
     <hr>
     <li><a href="#">Documents des professeurs</a></li>
     <hr>
-    <li><a href="#">Liste des étudiants</a></li>
+    <li><a href="listeEtudiant.jsp">Liste des étudiants</a></li>
     <hr>
     <li><a href="#">Liste des profs</a></li>
   </ul>

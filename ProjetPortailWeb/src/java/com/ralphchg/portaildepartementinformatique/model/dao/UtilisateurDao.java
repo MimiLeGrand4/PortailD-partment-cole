@@ -19,7 +19,7 @@ public interface UtilisateurDao {
 
     Utilisateur findByNameRole(String nomRole);
 
-    List<Role> findAllRole();
+
 
     List<Utilisateur> findAllByNameRole(String nomRole);
 
@@ -42,5 +42,5 @@ public interface UtilisateurDao {
     boolean delete(int id);
     
     
-   
+    List<Role> findAllComptes();
 }

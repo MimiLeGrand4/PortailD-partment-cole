@@ -57,7 +57,7 @@ public class Role implements Serializable {
     @Override
        public String toString() {
          String message = "";
-       message += String.format(" %-5d  %15s",this.id,this.nom); 
+       message += String.format(" %-5d  %30s",this.id,this.nom); 
        return message;
     }
 }

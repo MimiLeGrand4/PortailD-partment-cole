@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 
 public class UtilisateurImplDao implements UtilisateurDao {
 
-    private static final String SQL_SELECT_ROLE = "select * from roles ";
+   
     private static final String SQL_SELECT_Project = "select * from projets";
     private static final String SQL_SELECT_ROLE_PAR_NOM_ROLE = "select * from roles where nom = ? ";
     private static final String SQL_SELECT_UTILSATEURS_PAR_NOM_ROLE = "select * from roles, utilisateurs where roles.nom = ?";
@@ -41,6 +41,9 @@ public class UtilisateurImplDao implements UtilisateurDao {
     private static final String SQL_SELECT_UTILISATEURS="select * from tbl_user";
     private static final String SQL_SELECT_PAR_NOM = "SELECT * FROM tbl_user WHERE nom = ?";
     private static final String SQL_SELECT_PAR_EMAIL = "SELECT * FROM tbl_user WHERE email = ?";
+    
+    
+     private static final String SQL_SELECT_COMPTE = "select * from tbl_accounttype ";
    //Admin privileges
     
     private static final String SQL_AJOUTER = "INSERT INTO tbl_user (tuteur, nom, prenom, passwd, accountType_id) VALUES (?, ?, ?, ?, ?)";
@@ -56,8 +59,30 @@ public class UtilisateurImplDao implements UtilisateurDao {
     private static final String SQL_Delete5 = "DELETE FROM tbl_projet WHERE user_id = ?";
     private static final String SQL_Delete6 = "DELETE FROM tbl_user WHERE user_id = ?";
 
+    @Override
+    public List<Role> findAllComptes() {
+         List<Role> listeRoles = null;
+        try {
+            PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_COMPTE);
 
+            ResultSet result = ps.executeQuery();
+            listeRoles = new ArrayList<>();
 
+            while (result.next()) {
+                Role role = new Role();
+                role.setId(result.getInt("accountType_id"));
+                role.setNom(result.getString("nom"));
+                
+                listeRoles.add(role);
+            };
+        } catch (SQLException ex) {
+            Logger.getLogger(UtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //Fermeture de toutes les ressources ouvertes
+        ConnexionBD.closeConnection();
+        return listeRoles;
+    }
+ 
     @Override
     public boolean ajouterEtudiant(Utilisateur utilisateur){
           boolean retour = false;
@@ -281,32 +306,27 @@ public class UtilisateurImplDao implements UtilisateurDao {
          Utilisateur utilisateur = null;
         try {
 
-            //Initialise la requête préparée basée sur la connexion
-            // la requête SQL passé en argument pour construire l'objet preparedStatement
+
             PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_PAR_NOM);
-            // on initialise la propriété nom du bean avec sa premiere valeur
+
             ps.setString(1, nom);
-            //On execute la requête et on récupère les résultats dans la requête 
-            // dans ResultSet
+
             ResultSet result = ps.executeQuery();
 
-            //// la méthode next() pour se déplacer sur l'enregistrement suivant
-            //on parcours ligne par ligne les résultas retournés
             while (result.next()) {
-                utilisateur = new Utilisateur();
-                utilisateur.setId(result.getInt("id"));
-                utilisateur.setEmail(result.getString("email"));
-                utilisateur.setTuteur(result.getBoolean("active"));
-                utilisateur.setNom(result.getString("nom"));
+                    utilisateur = new Utilisateur();
+                  utilisateur.setId(result.getInt("user_id"));
+                 utilisateur.setTuteur(result.getBoolean("tuteur"));
                 utilisateur.setPrenom(result.getString("prenom"));
-                utilisateur.setPassword(result.getString("password"));
-                utilisateur.setPhoto(result.getString("photo"));
+                utilisateur.setNom(result.getString("nom"));
+                utilisateur.setPassword(result.getString("passwd"));
+                utilisateur.setAccountType_id(result.getInt("accountType_id"));
 
             };
         } catch (SQLException ex) {
             Logger.getLogger(UtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //Fermeture de toutes les ressources ouvertes
+
         ConnexionBD.closeConnection();
         return utilisateur;
     }
@@ -351,10 +371,7 @@ public class UtilisateurImplDao implements UtilisateurDao {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
-    public List<Role> findAllRole() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+
 
     @Override
     public List<Utilisateur> findAllByNameRole(String nomRole) {
