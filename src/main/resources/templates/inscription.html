@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html  xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <meta charset="utf-8" />
+    <title>Formulaire d inscription</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <link th:href="@{/images/style.css}" rel="stylesheet" />
+    <style>
+        em.error{
+            color:red;
+        }
+        input.error{
+            border:1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="banniere">
+        <img id="logo" src="images/logo.png" alt="logo" />
+        <h1>Département des Techniques de l'Informatique</h1>
+
+    </div>
+    <div>
+        <nav class="navbarDep1">
+            <div id="navid">
+                <a th:href="@{/}" class="Nav">Accueil</a>
+                <a th:href="@{/espaceEP}" class="Nav">Espace EP</a>
+                <a th:href="@{/tutorat}" class="Nav">Aide et tutorat</a>
+                <a th:href="@{/inscription}" class="Nav">Inscription</a>
+                <a th:href="@{/connexion}" class="Nav">Connexion</a>
+            </div>
+        </nav>
+
+    </div>
+</header>
+<div>
+
+    <div class="d-flex justify-content-center">
+        <div class="panel panel-default mx-auto">
+            <div class="panel-body">
+                <h2>Inscription</h2>
+                <form th:action="@{/inscription/save}"  id="signupForm" method="get" class="form-horizontal" th:object="${}"
+                      action="">
+
+
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="gender_male"> Sex: </label>
+                        <div class="col-sm-4 col-sm-offset-0" >
+                            <label class="radio-inline" for="gender_male">
+                                <input type="radio" id="gender_male" value="m" name="sex">Male
+                            </label>
+                            <label class="radio-inline" for="gender_female">
+                                <input type="radio" id="gender_female" value="f" name="sex">Female
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="prenom">Prenom:</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" th:field="*{prenom}" id="prenom"
+                                   name="prenom" placeholder="prenom" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="nom">Nom:</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="nom"
+                                   name="nom" placeholder="nom" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="email">Email :</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="email"
+                                   name="email" placeholder="Email" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="password">Mot de passe :</label>
+                        <div class="col-sm-5">
+                            <input type="password" class="form-control" id="password"
+                                   name="password" placeholder="Password" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="confirm_password">Confirmation du mot de passe</label>
+                        <div class="col-sm-5">
+                            <input type="password" class="form-control"
+                                   id="confirm_password" name="confirm_password"
+                                   placeholder="Confirm password" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-4 control-label" for="programme">Choix du role : </label>
+                        <div class="col-sm-5">
+                            <select class="custom-select"id="programme" name="programme" title = "Choisissez un role" required>
+
+
+                                <option value=""></option>
+                                <option value="administrateur">Administrateur</option>
+                                <option value="visiteur">Visiteur</option>
+                                <option value="étudiant">Étudiant</option>
+                                <option value="professeur">Professeur</option>
+
+
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-sm-9 col-sm-offset-4">
+
+                            <input type="submit"  class="btn btn-primary btn-lg btn-inscr"
+                                   value="Inscription"  id="submit" />
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div th:include="pied :: #pied"></div>
+</footer>
+
+<script src="js/formValidation.js"></script>
+
+</body>
+</html>
