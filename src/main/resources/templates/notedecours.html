@@ -69,17 +69,13 @@ and open the template in the editor.
   <table class="my-table" data-table>
     <thead>
     <tr>
-      <th>ID utilisateur</th>
       <th>Nom</th>
-      <th>Contenu</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="user : ${listfichiers}" >
 
-      <td th:id="${user.fichier_id}"></td>
       <td th:text="${user.fichier_nom}"></td>
-      <td th:text="${user.contenu}"></td>
 
     </tr>
     </tbody>
