@@ -1,5 +1,6 @@
 package com.vincent.projetportailweb.controller;
 
+import com.vincent.projetportailweb.entities.Fichier;
 import com.vincent.projetportailweb.entities.Role;
 import com.vincent.projetportailweb.entities.Utilisateur;
 import com.vincent.projetportailweb.service.UtilisateurService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import java.util.List;
 
@@ -49,6 +51,21 @@ public class UtilisateurController {
         return "redirect:/utilisateurs";
     }
 */
+    @PostMapping("/inscription/save")
+    public String ajouterUtilisateur(Utilisateur utilisateur, RedirectAttributes redirectAttributes){
 
+
+        redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté avec success");
+        service.ajouterUtilisateur(utilisateur);
+        return "redirect:/espaceEP";
+    }
+
+
+//    @GetMapping("/notedecours")
+//    public String afficherUtilisateur(Model model){
+//        Iterable<Fichier> listfichiers = service.afficherNoteDeCours();
+//        model.addAttribute("listfichiers",listfichiers);
+//        return "notedecours";
+//    }
 
 }

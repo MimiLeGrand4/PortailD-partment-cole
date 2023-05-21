@@ -51,5 +51,8 @@ public interface UtilisateurRepository extends CrudRepository<Utilisateur, Integ
 
     @Query("SELECT u FROM Utilisateur u WHERE u.nom = :nom")
     public Utilisateur findUtilisateurByNom(@Param("nom") String nom);
+    @Query("SELECT u FROM Utilisateur u WHERE u.prenom = :prenom")
+    public org.web2proj.entities.Utilisateur getUtilisateurByPrenom(@Param("prenom") String prenom);
+
 
 }

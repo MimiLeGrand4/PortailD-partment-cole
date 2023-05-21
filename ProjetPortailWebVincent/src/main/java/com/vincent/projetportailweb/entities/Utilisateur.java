@@ -126,8 +126,19 @@ public class Utilisateur implements Serializable {
 
     }
 
+    public String afficherTitreDesColonnes() {
+        String message = "";
+        message = String.format(" %-10s  %30s %15s %15s %15s %15s %25s", "Id", "Email", "Active", "Nom", "Prenom",
+                "Password", "Photo");
+        message+="\n --------------------------------------------------------------------------------------------------------------------------------------";
+        return message;
+    }
+
     @Override
     public String toString() {
-        return "Utilisateur{" + "id=" + id + ", email=" + email + ", tuteur=" + tuteur + ", nom=" + nom + ", prenom=" + prenom + ", password=" + password  + ", accountType_id="  + '}';
+        String message = "";
+        message = String.format(" %-10d  %30s %15b %15s %15s %15s %25s ",this.id,this.nom, this.prenom,this.accountType,this.password,
+                this.tuteur);
+        return message;
     }
 }

@@ -2,6 +2,7 @@ package com.vincent.projetportailweb.entities;
 
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tbl_fichier")
@@ -49,11 +50,26 @@ public class Fichier {
         message+="\n --------------------------------------------------------------------------------";
         return message;
     }
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Fichier fichier = (Fichier) o;
+        return Objects.equals(id, fichier.id) && Objects.equals(nom, fichier.nom) && Objects.equals(contenu, fichier.contenu);
+    }
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
     @Override
     public String toString() {
-        String message = "";
-        message += String.format(" %-5d  %10s %25s ",this.id,this.nom, this.contenu);
-        return message;
+        return "Fichier{" +
+                "fichier_id=" + id +
+                ", nom='" + nom + '\'' +
+                ", contenu='" + contenu + '\'' +
+                '}';
     }
+
 }
