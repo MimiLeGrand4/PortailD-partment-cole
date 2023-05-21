@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4a59f7f9-eb3d-400a-92de-3a3cee41d326" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/portaildepartementinformatiquejeremyralphvincentfahim.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/portaildepartementinformatiquejeremyralphvincentfahim.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/listeEtudiant.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/espaceEP_Admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/espaceEP_Admin.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +28,15 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="ProjectId" id="2Q53byGF3iCuIcx1bfKC7AQUNMv" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -39,18 +45,31 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "Vincent",
-    "last_opened_file_path": "C:/Users/ralph/OneDrive - Collège de Rosemont/Try/portaildepartementinformatiquejeremyralphvincentfahim",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/Vince/IdeaProjects/portaildepartementinformatiquejeremyralphvincentfahim/src/main/resources/templates",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "spring.configuration.checksum": "41de92c83649e2e9265f5c6bdc140487",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Vince\IdeaProjects\portaildepartementinformatiquejeremyralphvincentfahim\src\main\resources\templates" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
   <component name="RunManager" selected="Spring Boot.ChezbioApplication">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="portaildepartementinformatiquejeremyralphvincentfahim" />
@@ -61,6 +80,13 @@
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
       <module name="portaildepartementinformatiquejeremyralphvincentfahim" />
       <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ChezbioApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ProjetPortailWeb" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.web2proj.ChezbioApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -90,6 +116,7 @@
       <updated>1684629690638</updated>
       <workItem from="1684629693696" duration="1018000" />
       <workItem from="1684630764989" duration="520000" />
+      <workItem from="1684702755526" duration="304000" />
     </task>
     <servers />
   </component>

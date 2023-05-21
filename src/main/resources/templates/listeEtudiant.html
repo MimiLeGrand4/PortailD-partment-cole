@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+  <title>Afficher Etudiant</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" ></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+  <link th:href="@{/images/style.css}" rel="stylesheet" />
+  <style>
+
+
+  </style>
+
+</head>
+<body>
+
+
+<header>
+  <div class="banniere">
+    <img id="logo" src="images/logo.png" alt="logo" />
+    <h1>Département des Techniques de l'Informatique</h1>
+
+  </div>
+  <div>
+    <nav class="navbarDep">
+      <div id="navid">
+        <a th:href="@{/}" class="Nav">Accueil</a>
+        <a th:href="@{/espaceEP}" class="Nav">Espace EP</a>
+        <a th:href="@{/tutorat}" class="Nav">Aide et tutorat</a>
+        <a th:href="@{/inscription}" class="Nav">Inscription</a>
+        <a th:href="@{/connexion}" class="Nav">Connexion</a>
+      </div>
+    </nav>
+
+  </div>
+</header>
+
+
+<div class="menuClass">
+  <p class="menu-label">Menu</p>
+</div>
+<div class="sidebar">
+  <ul>
+    <li><a href="#">Recherche</a></li>
+    <hr>
+    <li><a href="#">Projets des étudiants</a></li>
+    <hr>
+    <li><a href="#">Documents des professeurs</a></li>
+    <hr>
+    <li><a th:href="@{/listeEtudiant}" class="Nav">Liste des étudiants</a></li>
+
+    <hr>
+    <li><a href="#">Liste des profs</a></li>
+  </ul>
+</div>
+
+<div class="table-container">
+
+  <table class="my-table" data-table>
+    <thead>
+    <tr>
+      <th>ID utilisateur</th>
+      <th>Nom</th>
+      <th>Prenom</th>
+      <th>Roles</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${listUtilisateurs}" th:id="${user.id}">
+      <td th:text="${user.id}"></td>
+      <td th:text="${user.nom}"></td>
+      <td th:text="${user.prenom}"></td>
+      <td th:text="${user.accountType}"></td>
+      <td>
+        <a href="#" class="edit">Edit</a>
+        <a href="#" class="delete">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+
+
+
+</div>
+
+</body>
+</html>
