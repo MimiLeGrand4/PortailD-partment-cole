@@ -1,15 +1,4 @@
-<%-- 
-    Document   : listeEtudiant
-    Created on : 22-Mar-2023, 11:00:51 PM
-    Author     : Vince
---%>
-<%@page import="com.ralphchg.portaildepartementinformatique.model.entities.Utilisateur"%>
-<%@page import="java.util.ArrayList"%>
 
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.util.List" %>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -42,25 +31,18 @@ and open the template in the editor.
             </div>
       <div>
 <nav class="navbarDep">
-  <div id="navid">
-    <a href="index.jsp" class="Nav">Accueil</a>
-    <a href="espaceEP.jsp" class="Nav">Espace EP</a>
-    <a href="tutorat.jsp" class="Nav">Aide et tutorat</a>
-        <a href="inscription.jsp" class="Nav">Inscription</a>
-    <a href="connexion.jsp" class="Nav">Connexion</a>
-  </div>
+    <div id="navid">
+        <a th:href="@{/}" class="Nav">Accueil</a>
+        <a th:href="@{/espaceEP}" class="Nav">Espace EP</a>
+        <a th:href="@{/tutorat}" class="Nav">Aide et tutorat</a>
+        <a th:href="@{/inscription}" class="Nav">Inscription</a>
+        <a th:href="@{/connexion}" class="Nav">Connexion</a>
+    </div>
 </nav>
 
             </div>
         </header>
-    <body>
-        
 
-
-  
-
-
-        
         
         <div class="menuClass">
   <p class="menu-label">Menu</p>
@@ -79,58 +61,6 @@ and open the template in the editor.
   </ul>
 </div>
         
-        
-                <h2></h2>
-        <c:choose>
-          
-            <c:when test= "${not empty requestScope.listeRoles}">
-                 <h2>${requestScope.listeRoles}</h2> 
-            </c:when>
-            <c:otherwise>
-                <h2>Liste des utilisateurs</h2>
-            </c:otherwise>
-        </c:choose>
-
-
-     
-
-        <table style="width:79%">
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Mot de passe</th>
-
-
-            </tr>
-            <c:choose>
-                
-                <c:when test= "${not empty requestScope.utilisateur}">
-                    <tr>
-                        <td>${utilisateur.id}  </td>
-
-                        <td>${utilisateur.nom} </td>
-                        <td>${utilisateur.prenom}   </td>
-                        <td> ${utilisateur.password}  </td>
-                    </tr>
-                </c:when>
-                <c:otherwise>
-                <c:forEach var="user" items="${requestScope.listeUtilisateurs}" >
-                        <tr>
-                            <td>${user.id}  </td>
-
-                            <td>${user.nom} </td>
-                            <td>${user.prenom}   </td>
-                            <td> ${user.password}  </td>
-
-
-                        </tr>
-
-                    </c:forEach>
-                </c:otherwise>
-            </c:choose>
-
-        </table>
 
 
     </body>

@@ -20,17 +20,18 @@ public class UtilisateurController {
 
  @Autowired
  UtilisateurService service;
-    @GetMapping("/utilisateurs")
+
+    @GetMapping("/listeEtudiant")
     public String afficherUtilisateur(Model model){
         Iterable<Utilisateur> listUtilisateurs = service.afficherUtilisateurs();
         model.addAttribute("listUtilisateurs",listUtilisateurs);
-        return "utilisateurs";
+        return "listeEtudiant";
     }
-
+/*
     @GetMapping("/utilisateurs/new")
     public String afficherFormulaireUtilisateur(Model model){
         Utilisateur utilisateur = new Utilisateur();
-        utilisateur.setActive(true);
+       // utilisateur.setActive(true);
 
         model.addAttribute("utilisateur", utilisateur);
         List<Role> listeRole = service.afficherRoles();
@@ -42,25 +43,12 @@ public class UtilisateurController {
 
     @PostMapping("/utilisateurs/save")
     public String ajouterUtilisateur(Utilisateur utilisateur, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile file){
-
-        // L'interface MultipartFile permet de representer un fichier recu en paramètre dans une requete
-
-        //  la méthode getOriginalFilename retourne le contenu du fichier
-        // la méthode getContentType permet de savoir le type du contenu
-      String chemin =  file.getOriginalFilename();
-       String typeContenu =  file.getContentType();
-       System.out.println("chemin : " + chemin);
-        System.out.println("typeContenu : " + typeContenu);
-        //Nettegoe du nom fichier en cas des séquences indésirable.
-        String fileName = StringUtils.cleanPath(chemin);
-
-        utilisateur.setPhoto(fileName);
         // ajouter des données temporairement durant la requete
         redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté avec success");
         service.ajouterUtilisateur(utilisateur);
         return "redirect:/utilisateurs";
     }
-
+*/
 
 
 }

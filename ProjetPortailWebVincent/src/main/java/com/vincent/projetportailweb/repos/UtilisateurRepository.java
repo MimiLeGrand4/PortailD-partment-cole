@@ -9,6 +9,26 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface UtilisateurRepository extends CrudRepository<Utilisateur, Integer> {
+
+/*
+    @Query("DELETE FROM tbl_invite WHERE user_id = :userId")
+    public void deleteInviteByUserId(@Param("userId") Integer userId);
+
+    @Query("DELETE FROM tbl_evaluation WHERE user_id = :userId")
+    public void deleteEvaluationByUserId(@Param("userId") Integer userId);
+
+    @Query("DELETE FROM tbl_fichierPost WHERE post_id IN (SELECT post_id FROM tbl_post WHERE user_id = :userId)")
+    public void deleteFichierPostByUserId(@Param("userId") Integer userId);
+
+    @Query("DELETE FROM tbl_post WHERE id = :userId")
+    public void deletePostByUserId(@Param("userId") Integer userId);
+*/
+    @Query("DELETE FROM Projet WHERE id = :userId")
+    public void deleteProjetByUserId(@Param("userId") Integer userId);
+
+    @Query("DELETE FROM Utilisateur WHERE id = :userId")
+    public void deleteUserById(@Param("userId") Integer userId);
+
     @Query("SELECT u FROM Utilisateur u WHERE u.email = :email")
     //@Param est utilisé pour lier le paramètre method au paramètre Query.
     public Utilisateur getUtilisateurByEmail(@Param("email") String email);
@@ -22,10 +42,6 @@ public interface UtilisateurRepository extends CrudRepository<Utilisateur, Integ
     //Cette méthode suit la convention spécifié par Spring Data JPA
     public Long countById(Integer id);
     // 2 pour le 2 eme parametre active et 1 pour le 1er param`tre id
-    @Query("UPDATE Utilisateur u SET u.active = ?2 WHERE u.id = ?1")
-    // Comme c'est une méthode mis à jour on doit utiliser l'annotation @Modifying
-    @Modifying
-    public void updateActiveStatus(Integer id, boolean active);
 
 
     //Le 1 est l'argument pour premier paramètre qui est le mot clé
@@ -33,10 +49,7 @@ public interface UtilisateurRepository extends CrudRepository<Utilisateur, Integ
     public List<Utilisateur> findAll(String keyword);
 
 
-    //Ici, "u.roles" fait référence à la liste de rôles associés à un utilisateur.
-    // Nous joignons ensuite la relation entre
-    // "Utilisateur" et "Role" en utilisant "JOIN u.roles r"
-    // pour accéder à l'objet "Role" associé à chaque utilisateur.
-    @Query("SELECT u FROM Utilisateur u JOIN u.roles r WHERE r.nom = ?1")
-    public List<Utilisateur> findAllByNameRole(String nom);
+    @Query("SELECT u FROM Utilisateur u WHERE u.nom = :nom")
+    public Utilisateur findUtilisateurByNom(@Param("nom") String nom);
+
 }

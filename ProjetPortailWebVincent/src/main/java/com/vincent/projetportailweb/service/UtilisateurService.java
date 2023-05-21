@@ -11,17 +11,16 @@ import java.util.List;
 @Service
 
 public class UtilisateurService {
+
     @Autowired
     private UtilisateurRepository repo;
     @Autowired
     private RoleRepository roleRepos;
     public List<Utilisateur> afficherUtilisateurs(){
-
         return ( List<Utilisateur>)  repo.findAll();
     }
-
+/*
     public List<Role> afficherRoles(){
-
         return ( List<Role>)  roleRepos.findAll();
     }
 
@@ -45,4 +44,6 @@ public class UtilisateurService {
         return false;
 
     }
+    */
+
 }
