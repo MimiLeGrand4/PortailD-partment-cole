@@ -21,9 +21,4 @@ public class UtilisateurRestController {
     */
 
 
-    @PostMapping("/utilisateurs/check_utilisateur")
-    public String verifierDoublonEmail( @Param("prenom") String prenom,@Param("id") Integer id) {
-
-        return service.isPrenomUnique(prenom,id) ? "OK" : "Doublon";
-    }
 }

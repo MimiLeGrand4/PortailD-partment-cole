@@ -23,36 +23,42 @@ and open the template in the editor.
 <header>
     <div class="banniere">
         <img id="logo" src="images/logo.png" alt="logo" />
-        <h1>Département des Techniques de l'Informatique</h1>
+        <h1 th:text="#{label.deptInfo}">Département des Techniques de l'Informatique</h1>
 
+    </div>
+    <div th:if="${not #strings.isEmpty(nomUtilisateur)}">
+        <marquee>Bienvenue Mr/Mme <span class="rouge" th:text="${nomUtilisateur + ' ' + prenomUtilisateur}"></span> au Collège de Rosemont</marquee>
     </div>
     <div>
         <nav class="navbarDep">
             <div id="navid">
-                <a th:href="@{/}" class="Nav">Accueil</a>
-                <a th:href="@{/espaceEP}" class="Nav">Espace EP</a>
-                <a th:href="@{/tutorat}" class="Nav">Aide et tutorat</a>
-                <a th:href="@{/inscription}" class="Nav">Inscription</a>
-                <a th:href="@{/connexion}" class="Nav">Connexion</a>
+                <a th:href="@{/}" th:text="#{label.accueilMenu}" class="Nav">Accueil</a>
+                <a th:href="@{/espaceEP}" class="Nav" th:text="#{label.espaceEPMenu}">Espace EP</a>
+                <a th:href="@{/tutorat}" class="Nav" th:text="#{label.aideTutoratMenu}">Aide et tutorat</a>
+                <a th:href="@{/inscription}" class="Nav" th:text="#{label.inscriptionMenu}">Inscription</a>
+                <a th:href="@{/connexion}" class="Nav" th:text="#{label.connexionMenu}">Connexion</a>
+            </div>
+            <div class="language-links">
+                <a href="?lang=en" th:text="#{label.en}">English</a>
+                <a href="?lang=fr" th:text="#{label.fr}">Français</a>
             </div>
         </nav>
-
     </div>
 </header>
 <div class="menuClass">
-    <p class="menu-label">Menu</p>
+    <p class="menu-label" th:text="#{label.menu}">Menu</p>
 </div>
 <div class="sidebar">
     <ul>
-        <li><a href="#">Recherche</a></li>
+        <li><a href="#" th:text="#{label.recherche}">Recherche</a></li>
         <hr>
-        <li><a href="#">Projets des étudiants</a></li>
+        <li><a href="#" th:text="#{label.projetEtudiant}">Projets des étudiants</a></li>
         <hr>
-        <li><a href="#">Documents des professeurs</a></li>
+        <li><a href="#" th:text="#{label.documentProf}">Documents des professeurs</a></li>
         <hr>
-        <li><a th:href="@{/listeEtudiant}" class="Nav">Liste des étudiants</a></li>
+        <li><a th:href="@{/listeEtudiant}" class="Nav" th:text="#{label.listeEtudiant}">Liste des étudiants</a></li>
         <hr>
-        <li><a href="#">Liste des profs</a></li>
+        <li><a href="#" th:text="#{label.listProf}">Liste des profs</a></li>
     </ul>
 </div>
 

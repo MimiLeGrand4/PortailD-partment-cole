@@ -51,14 +51,7 @@ public class UtilisateurController {
         return "redirect:/utilisateurs";
     }
 */
-    @PostMapping("/inscription/save")
-    public String ajouterUtilisateur(Utilisateur utilisateur, RedirectAttributes redirectAttributes){
 
-
-        redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté avec success");
-        service.ajouterUtilisateur(utilisateur);
-        return "redirect:/espaceEP";
-    }
 
 
 //    @GetMapping("/notedecours")

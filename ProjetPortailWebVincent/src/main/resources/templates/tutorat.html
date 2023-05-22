@@ -24,84 +24,90 @@ and open the template in the editor.
 <header>
     <div class="banniere">
         <img id="logo" src="images/logo.png" alt="logo" />
-        <h1>Département des Techniques de l'Informatique</h1>
+        <h1 th:text="#{label.deptInfo}">Département des Techniques de l'Informatique</h1>
 
     </div>
+    <div th:if="${not #strings.isEmpty(nomUtilisateur)}">
+        <marquee>Bienvenue Mr/Mme <span class="rouge" th:text="${nomUtilisateur + ' ' + prenomUtilisateur}"></span> au Collège de Rosemont</marquee>
+    </div>
     <div>
-        <nav class="navbarDep1">
+        <nav class="navbarDep">
             <div id="navid">
-                <a th:href="@{/}" class="Nav">Accueil</a>
-                <a th:href="@{/espaceEP}" class="Nav">Espace EP</a>
-                <a th:href="@{/tutorat}" class="Nav">Aide et tutorat</a>
-                <a th:href="@{/inscription}" class="Nav">Inscription</a>
-                <a th:href="@{/connexion}" class="Nav">Connexion</a>
+                <a th:href="@{/}" th:text="#{label.accueilMenu}" class="Nav">Accueil</a>
+                <a th:href="@{/espaceEP}" class="Nav" th:text="#{label.espaceEPMenu}">Espace EP</a>
+                <a th:href="@{/tutorat}" class="Nav" th:text="#{label.aideTutoratMenu}">Aide et tutorat</a>
+                <a th:href="@{/inscription}" class="Nav" th:text="#{label.inscriptionMenu}">Inscription</a>
+                <a th:href="@{/connexion}" class="Nav" th:text="#{label.connexionMenu}">Connexion</a>
+            </div>
+            <div class="language-links">
+                <a href="?lang=en">English</a>
+                <a href="?lang=fr">Français</a>
             </div>
         </nav>
-
     </div>
 </header>
 <div class="container">
-    <h2 class="mt-5">Vous cherché de l'aide?</h2>
+    <h2 class="mt-5" th:text="#{label.titreaide}">Vous cherché de l'aide?</h2>
     <form>
         <div class="form-group">
-            <label for="cours">Choisir un cours en difficulté :</label>
+            <label for="cours" th:text="#{label.choisirCoursDifficulte}">Choisir un cours en difficulté :</label>
             <select class="form-control" id="cours" name="cours">
-                <option value="reseau">Réseautique</option>
-                <option value="programmation">Programmation</option>
+                <option value="reseau" th:text="#{label.reseautique}">Réseautique</option>
+                <option value="programmation" th:text="#{label.programmation}">Programmation</option>
             </select>
         </div>
         <div class="form-group">
-            <label for="description">Description de la difficulté :</label>
+            <label for="description" th:text="#{label.descriptionDifficulte}">Description de la difficulté :</label>
             <textarea class="form-control" id="description" name="description"></textarea>
         </div>
         <div class="form-group">
-            <label for="type-rencontre">Choisir le type de rencontre :</label>
+            <label for="type-rencontre" th:text="#{label.typeRencontre}">Choisir le type de rencontre :</label>
             <select class="form-control" id="type-rencontre" name="type-rencontre">
-                <option value="en-ligne">En ligne</option>
-                <option value="en-presentiel">En présentiel</option>
+                <option value="en-ligne" th:text="#{label.ligne}">En ligne</option>
+                <option value="en-presentiel" th:text="#{label.presentiel}">En présentiel</option>
             </select>
         </div>
         <div class="form-group">
-            <label for="disponibilites">Indiquer vos disponibilités pour un rendez-vous :</label>
+            <label for="disponibilites" th:text="#{label.disponibilite}">Indiquer vos disponibilités pour un rendez-vous :</label>
             <input type="datetime-local" class="form-control" id="disponibilites" name="disponibilites">
         </div>
         <div class="form-group">
-            <label for="cherche-tuteur">Chercher un tuteur :</label>
+            <label for="cherche-tuteur" th:text="#{label.tuteur}">Chercher un tuteur :</label>
             <input type="text" class="form-control" id="cherche-tuteur" name="cherche-tuteur">
         </div>
         <div class="form-group">
-            <label for="tuteurs-disponibles">Tuteurs disponibles :</label>
+            <label for="tuteurs-disponibles" th:text="#{label.tuteurDispo}">Tuteurs disponibles :</label>
             <select class="form-control" id="tuteurs-disponibles" name="tuteurs-disponibles">
                 <option value="tuteur1">Alex</option>
                 <option value="tuteur2">Justin</option>
                 <option value="tuteur3">Micheal</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary">Envoyer la demande</button>
+        <button type="submit" class="btn btn-primary" th:text="#{label.envoiDemande}">Envoyer la demande</button>
     </form>
     <hr class="mt-5">
-    <h2 class="mt-5">Vous voulez devenir un étudiant tuteur?</h2>
+    <h2 class="mt-5" th:text="#{label.titreEtudiantTuteur}">Vous voulez devenir un étudiant tuteur?</h2>
     <form>
         <div class="form-group">
-            <label for="cours-aider">Choisir un cours à aider :</label>
+            <label for="cours-aider" th:text="#{label.choisirCoursAider}">Choisir un cours à aider :</label>
             <select class="form-control" id="cours-aider" name="cours-aider">
-                <option value="reseau">Réseautique</option>
-                <option value="programmation">Programmation</option>
+                <option value="reseau" th:text="#{label.reseautique}">Réseautique</option>
+                <option value="programmation" th:text="#{label.programmation}">Programmation</option>
             </select>
         </div>
         <div
                 class="form-group">
-            <label for="type-rencontre-aider">Choisir le type de rencontre :</label>
+            <label for="type-rencontre-aider" th:text="#{label.typeRencontre}">Choisir le type de rencontre :</label>
             <select class="form-control" id="type-rencontre-aider" name="type-rencontre-aider">
-                <option value="en-ligne">En ligne</option>
-                <option value="en-presentiel">En présentiel</option>
+                <option value="en-ligne" th:text="#{label.ligne}">En ligne</option>
+                <option value="en-presentiel" th:text="#{label.presentiel}">En présentiel</option>
             </select>
         </div>
         <div class="form-group">
-            <label for="disponibilites-aider">Indiquer vos disponibilités pour un rendez-vous :</label>
+            <label for="disponibilites-aider" th:text="#{label.disponibilite}">Indiquer vos disponibilités pour un rendez-vous :</label>
             <input type="datetime-local" class="form-control" id="disponibilites-aider" name="disponibilites-aider">
         </div>
-        <button type="submit" class="btn btn-primary">S'inscrire</button>
+        <button type="submit" class="btn btn-primary" th:text="#{label.sinscrire}">S'inscrire</button>
     </form>
 </div>
 

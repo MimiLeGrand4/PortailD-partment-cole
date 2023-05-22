@@ -30,20 +30,26 @@ and open the template in the editor.
 <header>
     <div class="banniere">
         <img id="logo" src="images/logo.png" alt="logo" />
-        <h1>Département des Techniques de l'Informatique</h1>
+        <h1 th:text="#{label.deptInfo}">Département des Techniques de l'Informatique</h1>
 
     </div>
+    <div th:if="${not #strings.isEmpty(nomUtilisateur)}">
+        <marquee>Bienvenue Mr/Mme <span class="rouge" th:text="${nomUtilisateur + ' ' + prenomUtilisateur}"></span> au Collège de Rosemont</marquee>
+    </div>
     <div>
-        <nav class="navbarDep1">
+        <nav class="navbarDep">
             <div id="navid">
-                <a th:href="@{/}" class="Nav">Accueil</a>
-                <a th:href="@{/espaceEP}" class="Nav">Espace EP</a>
-                <a th:href="@{/tutorat}" class="Nav">Aide et tutorat</a>
-                <a th:href="@{/inscription}" class="Nav">Inscription</a>
-                <a th:href="@{/connexion}" class="Nav">Connexion</a>
+                <a th:href="@{/}" th:text="#{label.accueilMenu}" class="Nav">Accueil</a>
+                <a th:href="@{/espaceEP}" class="Nav" th:text="#{label.espaceEPMenu}">Espace EP</a>
+                <a th:href="@{/tutorat}" class="Nav" th:text="#{label.aideTutoratMenu}">Aide et tutorat</a>
+                <a th:href="@{/inscription}" class="Nav" th:text="#{label.inscriptionMenu}">Inscription</a>
+                <a th:href="@{/connexion}" class="Nav" th:text="#{label.connexionMenu}">Connexion</a>
+            </div>
+            <div class="language-links">
+                <a href="?lang=en">English</a>
+                <a href="?lang=fr">Français</a>
             </div>
         </nav>
-
     </div>
 </header>
 <div>
@@ -52,84 +58,60 @@ and open the template in the editor.
         <div class="panel panel-default mx-auto">
             <div class="panel-body">
                 <h2>Inscription</h2>
-                <form id="signupForm" method="get" class="form-horizontal"
-                      action="">
-
-
+                <form id="signupForm" method="post" class="form-horizontal" th:action="@{/inscription}">
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="gender_male"> Sex: </label>
+                        <label class="col-sm-4 control-label" for="gender_male" th:text="#{label.sexe}">Sexe:</label>
                         <div class="col-sm-4 col-sm-offset-0">
                             <label class="radio-inline" for="gender_male">
-                                <input type="radio" id="gender_male" value="m" name="sex">Male
+                                <input type="radio" id="gender_male" value="m" name="sex" >Homme
                             </label>
                             <label class="radio-inline" for="gender_female">
-                                <input type="radio" id="gender_female" value="f" name="sex">Female
+                                <input type="radio" id="gender_female" value="f" name="sex" >Femme
                             </label>
                         </div>
                     </div>
-
-
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="prenom">Prenom:</label>
+                        <label class="col-sm-4 control-label" for="prenom" th:text="#{label.prenom}">Prénom:</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="prenom"
-                                   name="prenom" placeholder="prenom" />
+                            <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="nom">Nom:</label>
+                        <label class="col-sm-4 control-label" for="nom" th:text="#{label.nom}">Nom:</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="nom"
-                                   name="nom" placeholder="nom" />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label" for="email">Email :</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" id="email"
-                                   name="email" placeholder="Email" />
+                            <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="password">Mot de passe :</label>
+                        <label class="col-sm-4 control-label" for="email" th:text="#{label.courriel}">Email:</label>
                         <div class="col-sm-5">
-                            <input type="password" class="form-control" id="password"
-                                   name="password" placeholder="Password" />
+                            <input type="text" class="form-control" id="email" name="email" placeholder="Email"  />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="confirm_password">Confirmation du mot de passe</label>
+                        <label class="col-sm-4 control-label" for="password" th:text="#{label.mdp}">Mot de passe:</label>
                         <div class="col-sm-5">
-                            <input type="password" class="form-control"
-                                   id="confirm_password" name="confirm_password"
-                                   placeholder="Confirm password" />
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  class="col-sm-4 control-label" for="programme">Choix du role : </label>
+                        <label class="col-sm-4 control-label" for="confirm_password" th:text="#{label.cmdp}">Confirmation du mot de passe:</label>
                         <div class="col-sm-5">
-                            <select class="custom-select"id="programme" name="programme" title = "Choisissez un role" required>
-
-
-                                <option value=""></option>
-                                <option value="administrateur">Administrateur</option>
-                                <option value="visiteur">Visiteur</option>
-                                <option value="étudiant">Étudiant</option>
-                                <option value="professeur">Professeur</option>
-
-
+                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirmation du mot de passe" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="programme" th:text="#{label.choixRole}">Choix du rôle:</label>
+                        <div class="col-sm-5">
+                            <select class="custom-select" id="role" name="roles" title="Choisissez un rôle" required>
+                                <option value="" selected disabled th:text="#{label.selectionRole}">>Sélectionnez un rôle</option>
+                                <option th:each="role : ${listeRoles}" th:value="${role.id}" th:text="${role.nom}"></option>
                             </select>
                         </div>
                     </div>
-
-
                     <div class="form-group">
                         <div class="col-sm-9 col-sm-offset-4">
-
-                            <input type="submit"  class="btn btn-primary btn-lg btn-inscr"
-                                   value="Inscription"  id="submit" />
-
+                            <button type="submit" class="btn btn-primary btn-lg btn-inscr" value="Inscription" id="submit" th:text="#{label.sinscrire}">S'inscrire</button>
                         </div>
                     </div>
                 </form>
