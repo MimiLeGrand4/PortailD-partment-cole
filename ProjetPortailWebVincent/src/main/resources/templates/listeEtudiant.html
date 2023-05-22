@@ -68,7 +68,6 @@
       <th>ID utilisateur</th>
       <th>Nom</th>
       <th>Prenom</th>
-      <th>Roles</th>
       <th>Action</th>
     </tr>
     </thead>
@@ -77,10 +76,15 @@
       <td th:text="${user.id}"></td>
       <td th:text="${user.nom}"></td>
       <td th:text="${user.prenom}"></td>
-      <td th:text="${user.accountType}"></td>
+
+
       <td>
         <a href="#" class="edit">Edit</a>
         <a href="#" class="delete">Delete</a>
+        <a class="fa-solid fa-trash fa-2x icon-dark"
+           th:href="@{'/listeEtudiant/delete/' + ${user.id}}"
+           th:id="${user.id}"
+           title="Supprimer cet utilisateur"></a>
       </td>
     </tr>
     </tbody>
