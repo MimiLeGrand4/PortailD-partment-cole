@@ -11,31 +11,34 @@ public class Projet implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(length = 50)
     private String nom;
-    private String profil;
-    private String anneeSession;
+    @ManyToOne
+    @JoinColumn(name ="profil_id")
+    private Profil profil_id;
+    @ManyToOne
+    @JoinColumn(name ="session_id")
+    private Session session_id;
+    @ManyToOne
+    @JoinColumn(name ="user_id")
+    private Utilisateur user_id;
+
+    private Boolean statut;
     private String description;
+    @Column(length = 100)
     private String urlVideoPresentation;
 
     public Projet() {
     }
 
-    public Projet(int id) {
-        this.id = id;
-    }
-
-    public Projet(String nom, String profil) {
+    public Projet(String nom, Profil profil, Session session,Utilisateur user, String description, String urlVideoPresentation, Boolean statut) {
         this.nom = nom;
-        this.profil = profil;
-    }
-
-    public Projet(int id, String nom, String profil, String anneeSession, String description, String urlVideoPresentation) {
-        this.id = id;
-        this.nom = nom;
-        this.profil = profil;
-        this.anneeSession = anneeSession;
+        this.profil_id = profil;
+        this.session_id = session;
+        this.user_id=user;
         this.description = description;
         this.urlVideoPresentation = urlVideoPresentation;
+        this.statut=statut;
     }
 
     public int getId() {
@@ -54,20 +57,36 @@ public class Projet implements Serializable {
         this.nom = nom;
     }
 
-    public String getProfil() {
-        return profil;
+    public Profil getProfil_id() {
+        return profil_id;
     }
 
-    public void setProfil(String profil) {
-        this.profil = profil;
+    public void setProfil_id(Profil profil_id) {
+        this.profil_id = profil_id;
     }
 
-    public String getAnneeSession() {
-        return anneeSession;
+    public Session getSession_id() {
+        return session_id;
     }
 
-    public void setAnneeSession(String anneeSession) {
-        this.anneeSession = anneeSession;
+    public void setSession_id(Session session_id) {
+        this.session_id = session_id;
+    }
+
+    public Utilisateur getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Utilisateur user_id) {
+        this.user_id = user_id;
+    }
+
+    public Boolean getStatut() {
+        return statut;
+    }
+
+    public void setStatut(Boolean statut) {
+        this.statut = statut;
     }
 
     public String getDescription() {
@@ -96,7 +115,7 @@ public class Projet implements Serializable {
     @Override
     public String toString() {
         String message = "";
-        message += String.format(" %-5d  %15s %30s %15s %30s %15s ", this.id, this.nom, this.profil, this.anneeSession, this.description, this.urlVideoPresentation);
+        message += String.format(" %-5d  %15s %30s %15s %30s %15s ", this.id, this.nom, this.profil_id, this.session_id, this.description, this.urlVideoPresentation);
         return message;
     }
 }

@@ -1,13 +1,12 @@
 package com.vincent.projetportailweb.service;
 
-import com.vincent.projetportailweb.entities.Role;
+
+import com.vincent.projetportailweb.entities.Fichier;
 import com.vincent.projetportailweb.entities.Utilisateur;
-import com.vincent.projetportailweb.repos.RoleRepository;
+import com.vincent.projetportailweb.repos.FichierRepository;
 import com.vincent.projetportailweb.repos.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.web2proj.entities.Fichier;
-import org.web2proj.repos.FichierRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -47,8 +46,6 @@ public class UtilisateurService {
     @Autowired
     private UtilisateurRepository repo;
     @Autowired
-    private RoleRepository roleRepos;
-    @Autowired
     private FichierRepository noteRepos;
 
     public Utilisateur ajouterUtilisateur(Utilisateur utilisateur){
@@ -63,7 +60,7 @@ public class UtilisateurService {
 
     public boolean isPrenomUnique(String prenom,Integer id) {
 
-        org.web2proj.entities.Utilisateur userByPrenom = repo.getUtilisateurByPrenom(prenom);
+        Utilisateur userByPrenom = repo.getUtilisateurByPrenom(prenom);
 
         if (userByPrenom == null) return true;
 

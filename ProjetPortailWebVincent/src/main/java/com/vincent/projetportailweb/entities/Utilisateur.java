@@ -11,29 +11,27 @@ public class Utilisateur implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    @Column(name = "user_id")
     private int id;
 
-    @Column(name = "email")
+    @Column(length = 255)
     private String email;
 
-    @Column(name = "tuteur")
     private boolean tuteur;
 
-    @Column(name = "nom")
+    @Column(length = 35)
     private String nom;
 
-    @Column(name = "prenom")
+    @Column(length = 35)
     private String prenom;
 
-    @Column(name = "passwd")
-    private String password;
-
-
+    @Column(length = 99)
+    private String passwd;
     @ManyToOne
-    @JoinColumn(name = "accountType_id", referencedColumnName = "accountType_id")
+    @JoinColumn(name ="accounttype_id")
     private AccountType accountType;
+
+
+
     public AccountType getAccountType() {
         return accountType;
     }
@@ -56,8 +54,8 @@ public class Utilisateur implements Serializable {
         return id;
     }
 
-    public String getPassword() {
-        return password;
+    public String getpasswd() {
+        return passwd;
     }
 
     public String getPrenom() {
@@ -86,19 +84,19 @@ public class Utilisateur implements Serializable {
         this.prenom = prenom;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setpasswd(String passwd) {
+        this.passwd = passwd;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public Utilisateur(String nom, String prenom, String email, String password) {
+    public Utilisateur(String nom, String prenom, String email, String passwd) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
-        this.password = password;
+        this.passwd = passwd;
     }
 
     public Utilisateur(int id, String nom, String prenom) {
@@ -107,29 +105,29 @@ public class Utilisateur implements Serializable {
         this.prenom = prenom;
     }
 
-    public Utilisateur(String email, boolean active, String nom, String prenom, String password) {
+    public Utilisateur(String email, boolean active, String nom, String prenom, String passwd) {
         this.email = email;
         this.tuteur = active;
         this.nom = nom;
         this.prenom = prenom;
-        this.password = password;
+        this.passwd = passwd;
 
     }
 
-    public Utilisateur(int id, String email, boolean active, String nom, String prenom, String password) {
+    public Utilisateur(int id, String email, boolean active, String nom, String prenom, String passwd) {
         this.id = id;
         this.email = email;
         this.tuteur = active;
         this.nom = nom;
         this.prenom = prenom;
-        this.password = password;
+        this.passwd = passwd;
 
     }
 
     public String afficherTitreDesColonnes() {
         String message = "";
         message = String.format(" %-10s  %30s %15s %15s %15s %15s %25s", "Id", "Email", "Active", "Nom", "Prenom",
-                "Password", "Photo");
+                "passwd", "Photo");
         message+="\n --------------------------------------------------------------------------------------------------------------------------------------";
         return message;
     }
@@ -137,7 +135,7 @@ public class Utilisateur implements Serializable {
     @Override
     public String toString() {
         String message = "";
-        message = String.format(" %-10d  %30s %15b %15s %15s %15s %25s ",this.id,this.nom, this.prenom,this.accountType,this.password,
+        message = String.format(" %-10d  %30s %15b %15s %15s %15s %25s ",this.id,this.nom, this.prenom,this.accountType,this.passwd,
                 this.tuteur);
         return message;
     }

@@ -12,13 +12,13 @@ CREATE TABLE tbl_user (
                           id int AUTO_INCREMENT,
                           nom varchar(35),
                           prenom varchar(35),
-                          accountType_id int,
+                          accounttype_id int,
                           passwd varchar(99),
                           tuteur Boolean,
                           email varchar(255),
 
                           PRIMARY KEY (id),
-                          FOREIGN KEY (accountType_id) REFERENCES tbl_accountType(id)
+                          FOREIGN KEY (accounttype_id) REFERENCES tbl_accountType(id)
 );
 
 CREATE TABLE tbl_session (
@@ -52,17 +52,14 @@ CREATE TABLE tbl_projet (
 );
 
 CREATE TABLE tbl_evaluation(
+                               id int AUTO_INCREMENT,
                                user_id int ,
                                projet_id int ,
                                note int(3),
                                commentaire text,
 
 
-                               CONSTRAINT PK_tbl_evaluation PRIMARY KEY
-                                   (
-                                    user_id,
-                                    projet_id
-                                       ),
+                               PRIMARY KEY (id),
                                FOREIGN KEY (projet_id) REFERENCES tbl_projet(id),
                                FOREIGN KEY (user_id) REFERENCES tbl_user(id)
 );

@@ -1,7 +1,7 @@
 package com.vincent.projetportailweb.controller;
 
 import com.vincent.projetportailweb.entities.Fichier;
-import com.vincent.projetportailweb.entities.Role;
+
 import com.vincent.projetportailweb.entities.Utilisateur;
 import com.vincent.projetportailweb.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
