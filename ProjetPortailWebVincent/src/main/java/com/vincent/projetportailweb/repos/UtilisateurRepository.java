@@ -10,24 +10,17 @@ import java.util.List;
 
 public interface UtilisateurRepository extends CrudRepository<Utilisateur, Integer> {
 
-/*
-    @Query("DELETE FROM tbl_invite WHERE user_id = :userId")
-    public void deleteInviteByUserId(@Param("userId") Integer userId);
+    @Modifying
+    @Query("DELETE FROM Evaluation WHERE user_id = :user_id")
+    public void deleteEvaluationByUserId(@Param("user_id") Utilisateur utilisateur);
 
-    @Query("DELETE FROM tbl_evaluation WHERE user_id = :userId")
-    public void deleteEvaluationByUserId(@Param("userId") Integer userId);
+    @Modifying
+    @Query("DELETE FROM Fichier WHERE user_id = :user_id")
+    public void deleteFichierByUserId(@Param("user_id") Utilisateur utilisateur);
 
-    @Query("DELETE FROM tbl_fichierPost WHERE post_id IN (SELECT post_id FROM tbl_post WHERE user_id = :userId)")
-    public void deleteFichierPostByUserId(@Param("userId") Integer userId);
-
-    @Query("DELETE FROM tbl_post WHERE id = :userId")
-    public void deletePostByUserId(@Param("userId") Integer userId);
-*/
-    @Query("DELETE FROM Projet WHERE id = :userId")
-    public void deleteProjetByUserId(@Param("userId") Integer userId);
-
-    @Query("DELETE FROM Utilisateur WHERE id = :userId")
-    public void deleteUserById(@Param("userId") Integer userId);
+    @Modifying
+    @Query("DELETE FROM Projet WHERE user_id = :user_id")
+    public void deleteProjetByUserId(@Param("user_id") Utilisateur utilisateur);
 
     @Query("SELECT u FROM Utilisateur u WHERE u.email = :email")
     //@Param est utilisé pour lier le paramètre method au paramètre Query.

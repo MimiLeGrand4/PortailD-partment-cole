@@ -58,6 +58,19 @@ public class UtilisateurService {
         return ( List<Fichier>)  noteRepos.findAll();
     }
 
+
+
+    @Transactional
+    public void delete(Integer id) throws UtilisateurNotFoundException {
+        Utilisateur utilisateur = repo.findById(id)
+                .orElseThrow(() -> new UtilisateurNotFoundException("Utilisateur non trouvé " + id));
+
+        repo.deleteEvaluationByUserId(utilisateur);
+        repo.deleteFichierByUserId(utilisateur);
+        repo.deleteProjetByUserId(utilisateur);
+        repo.delete(utilisateur);
+    }
+
     public boolean isPrenomUnique(String prenom,Integer id) {
 
         Utilisateur userByPrenom = repo.getUtilisateurByPrenom(prenom);
