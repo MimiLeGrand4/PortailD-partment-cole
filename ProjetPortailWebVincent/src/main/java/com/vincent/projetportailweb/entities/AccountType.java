@@ -6,17 +6,19 @@ import javax.persistence.*;
 public class AccountType {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
-    @Column(length = 30)
+    @Column(length = 30,name = "nom")
     private String nom;
 
-    public int getAccountType_id() {
+    public int getId() {
         return id;
     }
 
-    public void setAccountType_id(int accountType_id) {
-        this.id = accountType_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNom() {

@@ -9,13 +9,11 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-<<<<<<< HEAD
-public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> {
-    // Vous pouvez ajouter des méthodes supplémentaires spécifiques à votre cas d'utilisation
-    // Si nécessaire, utilisez les annotations de requête comme @Query pour les requêtes personnalisées
-    Utilisateur findByEmail(String email);
-=======
+
+
 public interface UtilisateurRepository extends CrudRepository<Utilisateur, Integer> {
+    Utilisateur findByEmail(String email);
+
 
     @Modifying
     @Query("DELETE FROM Evaluation WHERE user_id = :user_id")
@@ -55,5 +53,5 @@ public interface UtilisateurRepository extends CrudRepository<Utilisateur, Integ
     public Utilisateur getUtilisateurByPrenom(@Param("prenom") String prenom);
 
 
->>>>>>> 3eeb8c379ec6cb05b9a9d0e3ae4ec175c46b1541
+
 }

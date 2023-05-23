@@ -1,19 +1,23 @@
 package com.vincent.projetportailweb.service;
 
 
+import com.vincent.projetportailweb.entities.AccountType;
 import com.vincent.projetportailweb.entities.Fichier;
 import com.vincent.projetportailweb.entities.Utilisateur;
 import com.vincent.projetportailweb.repos.FichierRepository;
+import com.vincent.projetportailweb.repos.RoleRepository;
 import com.vincent.projetportailweb.repos.UtilisateurRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-<<<<<<< HEAD
 
-=======
->>>>>>> 3eeb8c379ec6cb05b9a9d0e3ae4ec175c46b1541
 
 import javax.transaction.Transactional;
 import java.util.List;
+
+
 @Service
 @Transactional
 public class UtilisateurService {
@@ -25,30 +29,40 @@ public class UtilisateurService {
     @Autowired
     private UtilisateurRepository repo;
     @Autowired
-<<<<<<< HEAD
     private RoleRepository roleRepos;
-=======
+
     private FichierRepository noteRepos;
->>>>>>> 3eeb8c379ec6cb05b9a9d0e3ae4ec175c46b1541
 
 
-    public List<Role> afficherRoles(){
+    public List<AccountType> afficherRoles(){
 
-        return ( List<Role>)  roleRepos.findAll();
+        return ( List<AccountType>)  roleRepos.findAll();
     }
     public void setRoleRepository(RoleRepository roleRepository) {
         this.roleRepos = roleRepository;
     }
-<<<<<<< HEAD
+    private static final Logger logger = LoggerFactory.getLogger(UtilisateurService.class);
     public void enregistrerUtilisateur(Utilisateur utilisateur) {
+        logger.info("Enregistrement de l'utilisateur : {}", utilisateur);
+
+        // Récupérer le type de compte à partir de l'ID sélectionné dans le formulaire
+        AccountType accountType = roleRepos.findById(utilisateur.getAccountType().getId()).orElse(null);
+        utilisateur.setAccountType(accountType);
+
         // Ajoutez ici la logique pour enregistrer l'utilisateur dans la base de données
         repo.save(utilisateur);
+
+        logger.info("Utilisateur enregistré avec succès");
     }
+
     public Utilisateur validateUser(String email, String password) {
         Utilisateur user = repo.findByEmail(email);
-        if (user != null && password.equals(user.getPassword())) {
+        if (user != null && password.equals(user.getPasswd())) {
             return user;
-=======
+        }
+        return null;
+    }
+
 
 
 
@@ -73,8 +87,7 @@ public class UtilisateurService {
         boolean isCreatingNewUser = false;
         if (id == null){
             isCreatingNewUser=true;
->>>>>>> 3eeb8c379ec6cb05b9a9d0e3ae4ec175c46b1541
         }
-        return null;
+        return true;
     }
 }

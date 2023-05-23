@@ -1,6 +1,6 @@
 package com.vincent.projetportailweb.controller;
 
-import com.vincent.projetportailweb.entities.Role;
+import com.vincent.projetportailweb.entities.AccountType;
 import com.vincent.projetportailweb.entities.Utilisateur;
 import com.vincent.projetportailweb.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,29 +56,32 @@ public class AppController {
         return "tutorat";
     }
 
-    @Autowired
-    UtilisateurService service;
+
 
 
 
     @GetMapping("/inscription")
     public String afficherFormulaireUtilisateur(Model model){
         Utilisateur utilisateur = new Utilisateur();
-        utilisateur.setActive(true);
         model.addAttribute("utilisateur", utilisateur);
-        List<Role> listeRoles = service.afficherRoles();
+        List<AccountType> listeRoles = utilisateurService.afficherRoles();
         model.addAttribute("listeRoles", listeRoles);
         model.addAttribute("pageTitle", "Inscription");
         return "inscription";
     }
     @PostMapping("/inscription")
-    public String enregistrerUtilisateur(@ModelAttribute Utilisateur utilisateur) {
+    public String enregistrerUtilisateur(@ModelAttribute Utilisateur utilisateur, @RequestParam("utilisateur.accountType.id") int accountTypeId) {
+        AccountType accountType = new AccountType();
+        accountType.setId(accountTypeId);
+        utilisateur.setAccountType(accountType);
+
         // Ajoutez ici la logique pour enregistrer l'utilisateur dans la base de données
         utilisateurService.enregistrerUtilisateur(utilisateur);
 
         // Redirigez l'utilisateur vers une autre page (par exemple, une page de confirmation)
         return "redirect:/";
     }
+
     @GetMapping("/connexion")
     public String afficherPageConnexion() {
         return "connexion";
@@ -104,9 +107,9 @@ public class AppController {
                 return "redirect:/espaceEP_Admin";
             }
             // Vérifier le rôle de l'utilisateur et effectuer la redirection en conséquence
-            if (user.getRoles().equals("admin")) {
+            if (user.getAccountType().getNom().equals("admin")) {
                 return "redirect:/espaceEP_Admin";
-            } else if (user.getRoles().equals("professeur")) {
+            } else if (user.getAccountType().getNom().equals("professeur")) {
                 return "redirect:/espaceEP_Professeur";
             } else {
                 return "redirect:/";

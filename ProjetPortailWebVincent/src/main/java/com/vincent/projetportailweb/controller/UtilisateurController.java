@@ -1,5 +1,6 @@
 package com.vincent.projetportailweb.controller;
 
+import com.vincent.projetportailweb.entities.AccountType;
 import com.vincent.projetportailweb.entities.Fichier;
 
 import com.vincent.projetportailweb.entities.Utilisateur;
@@ -31,36 +32,31 @@ public class UtilisateurController {
         model.addAttribute("listUtilisateurs",listUtilisateurs);
         return "listeEtudiant";
     }
-/*
+
     @GetMapping("/utilisateurs/new")
     public String afficherFormulaireUtilisateur(Model model){
         Utilisateur utilisateur = new Utilisateur();
        // utilisateur.setActive(true);
 
         model.addAttribute("utilisateur", utilisateur);
-        List<Role> listeRole = service.afficherRoles();
+        List<AccountType> listeRole = service.afficherRoles();
         model.addAttribute("listeRole", listeRole);
         model.addAttribute("pageTitle","Ajouter un nouveau utilisateur");
 
         return "utilisateurs_form";
     }
 
-    @PostMapping("/utilisateurs/save")
-    public String ajouterUtilisateur(Utilisateur utilisateur, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile file){
-        // ajouter des données temporairement durant la requete
-        redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté avec success");
-        service.ajouterUtilisateur(utilisateur);
-        return "redirect:/utilisateurs";
-    }
-*/
-
-
-<<<<<<< HEAD
-=======
-        redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté avec success");
-        service.ajouterUtilisateur(utilisateur);
-        return "redirect:/espaceEP";
-    }
+//    @PostMapping("/utilisateurs/save")
+//    public String ajouterUtilisateur(Utilisateur utilisateur, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile file){
+//
+//
+//
+//
+//
+//        redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté avec success");
+//        service.(utilisateur);
+//        return "redirect:/espaceEP";
+//    }
     @GetMapping("/listeEtudiant/delete/{id}")
     public String supprimerUtilisateur(@PathVariable(name = "id") Integer id,
                                        Model model,
@@ -76,7 +72,7 @@ public class UtilisateurController {
         return "redirect:/listeEtudiant";
     }
 
->>>>>>> 3eeb8c379ec6cb05b9a9d0e3ae4ec175c46b1541
+
 
 //    @GetMapping("/notedecours")
 //    public String afficherUtilisateur(Model model){
