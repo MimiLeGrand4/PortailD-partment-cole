@@ -52,7 +52,7 @@ public class UtilisateurController {
 //        service.(utilisateur);
 //        return "redirect:/espaceEP";
 //    }
-    @GetMapping("/listeEtudiant/delete/{id}")
+    @GetMapping("/listeUtilisateurs/delete/{id}")
     public String supprimerUtilisateur(@PathVariable(name = "id") Integer id,
                                        Model model,
                                        RedirectAttributes redirectAttributes) {
@@ -64,7 +64,7 @@ public class UtilisateurController {
             redirectAttributes.addFlashAttribute("message", "On ne peut pas trouver un utilisateur avec l'id " + id);
         }
 
-        return "redirect:/listeEtudiant";
+        return "redirect:/listeUtilisateurs";
     }
 
 
