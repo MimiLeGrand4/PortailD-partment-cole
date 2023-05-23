@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html  xmlns:th="http://www.thymeleaf.org" lang="">
 <head>
-  <title>Afficher Etudiant</title>
+  <title>Afficher Projet</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -62,35 +62,16 @@
 
 <div class="table-container">
 
-  <table class="my-table" data-table>
-    <thead>
-    <tr>
-      <th>ID utilisateur</th>
-      <th>Nom</th>
-      <th>Prenom</th>
-      <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${listUtilisateurs}" th:id="${user.id}">
-      <td th:text="${user.id}"></td>
-      <td th:text="${user.nom}"></td>
-      <td th:text="${user.prenom}"></td>
+  <form th:action="@{/recherche/projet}" class="form-inline m-3">
 
 
-      <td>
-        <a class="fas fa-pencil-alt fa-2x icon-dark"
-           th:href="@{'/listeEtudiant/delete/' + ${user.id}}"
-           th:id="${user.id}"
-           title="Modifier cet utilisateur"></a>
-        <a class="fa-solid fa-trash fa-2x icon-dark"
-           th:href="@{'/listeEtudiant/delete/' + ${user.id}}"
-           th:id="${user.id}"
-           title="Supprimer cet utilisateur"></a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+    Recherche un projet:&nbsp;
+    <input type="search" name="keyword" th:value="${keyword}" class="form-control"/>
+    &nbsp;&nbsp;
+    <button type="submit" class="btn btn-primary">
+      Recherche
+    </button>
+  </form>
 
 
 

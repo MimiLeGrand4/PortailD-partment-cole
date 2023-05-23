@@ -20,7 +20,21 @@ public class ProjetService {
 
     public List<Projet> afficherProjet(){return (List<Projet>) repo.findAll();}
 
+    public List<Projet> afficherProjet(String keyword){
+        if (keyword != null) {
+        return repo.findAll(keyword);
+    }
+
+        return  null;
+    }
+
     public List<Utilisateur> afficherUtilisateurs(){
         return ( List<Utilisateur>)  repoUser.findAll();
     }
+
+
+    public List<Projet> afficherMesProjet(int keyword){
+        return repo.findProjetById(keyword);
+    }
 }
+

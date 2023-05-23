@@ -119,6 +119,11 @@ public class AppController {
 
         return "redirect:/connexion";
     }
+    @GetMapping("/recherche")
+    public String recherche() {
+        return "recherche";
+    }
+
 
 }
 
