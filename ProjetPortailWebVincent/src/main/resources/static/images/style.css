@@ -23,7 +23,8 @@ html{
 
 
 }
-
+a:visited {
+    color: blue; }
 #pied {
     height: 60px;
     width: 450px;

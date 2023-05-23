@@ -104,11 +104,11 @@ and open the template in the editor.
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="programme" th:text="#{label.choixRole}">Choix du rôle:</label>
+                        <label class="col-sm-4 control-label" for="role"  th:text="#{label.choixRole}">Choix du rôle:</label>
                         <div class="col-sm-5">
                             <select class="custom-select" id="role" name="utilisateur.accountType.id" title="Choisissez un rôle" required>
-                                <option value="" selected disabled th:text="#{label.selectionRole}">Sélectionnez un rôle</option>
-                                <option th:each="role : ${listeRoles}" th:value="${role.id}" th:text="${role.nom}"></option>
+                                <option th:field="*{accountType.nom}" value="" disabled th:text="#{label.selectionRole}">Sélectionnez un rôle</option>
+                                <option th:each="role : ${listeRoles}" th:value="${role.id}" th:text="${role.nom}" th:selected="${role.id == utilisateur.accountType.id}"></option>
                             </select>
                         </div>
                     </div>
