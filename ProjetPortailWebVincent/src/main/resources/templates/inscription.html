@@ -58,8 +58,11 @@ and open the template in the editor.
         <div class="panel panel-default mx-auto">
             <div class="panel-body">
                 <h2>Inscription</h2>
-                <form id="signupForm" method="post" class="form-horizontal" action="/inscription">
+                <form th:action="@{/inscription}" id="signupForm" method="post" class="form-horizontal" action="/inscription" th:object="${utilisateur}">
                     <div class="form-group">
+                        <input type="hidden" th:field="*{id}" />
+
+
                         <label class="col-sm-4 control-label" for="gender_male" th:text="#{label.sexe}">Sexe:</label>
                         <div class="col-sm-4 col-sm-offset-0">
                             <label class="radio-inline" for="gender_male">
@@ -73,19 +76,19 @@ and open the template in the editor.
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="prenom" th:text="#{label.prenom}">Prénom:</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom" />
+                            <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom" th:value="${utilisateur.prenom}" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="nom" th:text="#{label.nom}">Nom:</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" />
+                            <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" th:value="${utilisateur.nom}"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="email" th:text="#{label.courriel}">Email:</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="email" name="email" placeholder="Email"  />
+                            <input type="text" class="form-control" id="email" name="email" placeholder="Email" th:value="${utilisateur.email}" />
                         </div>
                     </div>
                     <div class="form-group">
@@ -117,7 +120,9 @@ and open the template in the editor.
                 </form>
             </div>
         </div>
+
     </div>
+
 </div>
 <footer class="footer">
     <div th:include="pied :: #pied"></div>

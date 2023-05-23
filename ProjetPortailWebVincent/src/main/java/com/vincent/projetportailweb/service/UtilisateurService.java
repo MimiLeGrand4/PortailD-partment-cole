@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 @Service
@@ -90,4 +91,13 @@ public class UtilisateurService {
         }
         return true;
     }
+    public Utilisateur get(Integer id) throws UtilisateurNotFoundException  {
+        try{
+            return  repo.findById(id).get();
+        }catch (NoSuchElementException exception){
+            throw  new UtilisateurNotFoundException("On ne peut pas trouver un utilisateur avec l'id" + id);
+        }
+
+    }
+
 }

@@ -75,5 +75,23 @@ public class UtilisateurController {
 //        model.addAttribute("listfichiers",listfichiers);
 //        return "notedecours";
 //    }
+@GetMapping("/listeUtilisateurs/edit/{id}")
+public String editUtilisateur(@PathVariable(name = "id") Integer id,RedirectAttributes redirectAttributes, Model model) {
+    try {
+        Utilisateur utilisateur = service.get(id);
+        List<AccountType> listeRole = service.afficherRoles();
 
+        model.addAttribute("pageTitle", "Editer Utilisateur (ID: " + id + ")");
+
+        model.addAttribute("listeRoles", listeRole);
+        model.addAttribute("utilisateur", utilisateur);
+        return "inscription";
+    } catch (UtilisateurNotFoundException e) {
+        //  e.printStackTrace();
+        // redirectAttributes.addFlashAttribute("message", e.getMessage());
+        redirectAttributes.addFlashAttribute("message", "On ne peut pas trouver un utilisateur avec l'id " + id);
+        return "redirect:/listeUtilisateurs";
+    }
+
+}
 }

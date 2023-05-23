@@ -82,11 +82,9 @@
 
       <td>
         <a class="fas fa-pencil-alt fa-2x icon-dark"
-           th:href="@{'/listeEtudiant/delete/' + ${user.id}}"
-           th:id="${user.id}"
-           title="Modifier cet utilisateur"></a>
+           th:href="@{'/listeUtilisateurs/edit/' + ${user.id}}" title="Modifier cet utilisateur"></a>
         <a class="fa-solid fa-trash fa-2x icon-dark"
-           th:href="@{'/listeEtudiant/delete/' + ${user.id}}"
+           th:href="@{'/listeUtilisateurs/delete/' + ${user.id}}"
            th:id="${user.id}"
            title="Supprimer cet utilisateur"></a>
       </td>
@@ -98,6 +96,19 @@
 
 
 </div>
+<script>
+  $(document).ready(function () {
+    $(".fa-pencil-alt").on("click", function (e) {
+      e.preventDefault();
+      var link = $(this);
+      var id = link.attr("id");
+      window.location.href = "/listeUtilisateurs/edit/" + id;
+    });
 
+  function clearFilter() {
+    window.location = "[[@{/utilisateurs}]]";
+  }
+
+</script>
 </body>
 </html>
