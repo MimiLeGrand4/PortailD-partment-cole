@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -107,11 +108,17 @@ public class AppController {
                 return "redirect:/espaceEP_Admin";
             }
             // Vérifier le rôle de l'utilisateur et effectuer la redirection en conséquence
-            if (user.getAccountType().getNom().equals("admin")) {
+            if (user.getAccountType().getNom().equals("administrator")) {
                 return "redirect:/espaceEP_Admin";
-            } else if (user.getAccountType().getNom().equals("professeur")) {
+            }
+            else if (user.getAccountType().getNom().equals("professeur")) {
                 return "redirect:/espaceEP_Professeur";
-            } else {
+            }
+            else if (user.getAccountType().getNom().equals("etudiant")) {
+                return "redirect:/espaceEP";
+            }
+            else
+            {
                 return "redirect:/";
             }
 
@@ -119,6 +126,45 @@ public class AppController {
 
         return "redirect:/connexion";
     }
+    @GetMapping("/maPage")
+    public String maPage(HttpSession session, Model model) {
+        // Obtenir l'utilisateur de la session
+        Utilisateur utilisateur = (Utilisateur) session.getAttribute("user");
+
+        String vue;
+        if (utilisateur != null && utilisateur.getAccountType() != null) {
+            switch(utilisateur.getAccountType().getNom()) {
+                case "administrator":
+                    vue = "redirect:/espaceEP_Admin";
+                    break;
+                case "professeur":
+                    vue = "redirect:/espaceEP_Professeur";
+                    break;
+                case "etudiant":
+                    vue = "redirect:/espaceEP";
+                    break;
+                default:
+                    vue = "redirect:/espaceEP_Visiteur";
+            }
+        } else {
+            vue = "redirect:/espaceEP_Visiteur";
+        }
+
+        return vue;
+    }
+    @GetMapping("/deconnexion")
+    public String deconnexion(HttpSession session, HttpServletResponse response, HttpServletRequest request) {
+        session.invalidate(); // Invalide la session de l'utilisateur
+        Cookie[] cookies = request.getCookies(); // Récupère tous les cookies
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                cookie.setMaxAge(0); // Définit la durée de vie des cookies à 0 pour les supprimer
+                response.addCookie(cookie); // Ajoute les cookies à la réponse
+            }
+        }
+        return "redirect:/"; // Redirige vers la page d'accueil ou une autre page appropriée
+    }
+
     @GetMapping("/recherche")
     public String recherche() {
         return "recherche";

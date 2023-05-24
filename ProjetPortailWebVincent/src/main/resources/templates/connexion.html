@@ -28,23 +28,9 @@ and open the template in the editor.
 
   </div>
   <div th:if="${not #strings.isEmpty(nomUtilisateur)}">
-    <marquee>Bienvenue Mr/Mme <span class="rouge" th:text="${nomUtilisateur + ' ' + prenomUtilisateur}"></span> au Collège de Rosemont</marquee>
+    <marquee>Salut Mr/Mme <span class="rouge" th:text="${nomUtilisateur + ' ' + prenomUtilisateur}"></span> au Collège de Rosemont</marquee>
   </div>
-  <div>
-    <nav class="navbarDep">
-      <div id="navid">
-        <a th:href="@{/}" class="Nav">Accueil</a>
-        <a th:href="@{/espaceEP_Visiteur}" class="Nav">Espace EP</a>
-        <a th:href="@{/tutorat}" class="Nav">Aide et tutorat</a>
-        <a th:href="@{/inscription}" class="Nav">Inscription</a>
-        <a th:href="@{/connexion}" class="Nav">Connexion</a>
-      </div>
-      <div class="language-links">
-        <a href="?lang=en" th:text="#{label.en}">English</a>
-        <a href="?lang=fr" th:text="#{label.fr}">Français</a>
-      </div>
-    </nav>
-  </div>
+  <div th:include="navigationMenu :: #menuNavigation"></div>
 </header>
 
 

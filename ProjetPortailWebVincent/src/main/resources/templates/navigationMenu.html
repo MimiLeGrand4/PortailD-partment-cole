@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Titre</title>
+</head>
+<body>
+<div id="menuNavigation">
+  <nav class="navbarDep">
+    <div id="navid">
+      <a th:href="@{/}" th:text="#{label.accueilMenu}" class="Nav">Accueil</a>
+      <a th:href="@{/maPage}" class="Nav" th:text="#{label.espaceEPMenu}">Espace EP</a>
+      <a th:href="@{/tutorat}" th:if="${#session.getAttribute('user') != null}" class="Nav" th:text="#{label.aideTutoratMenu}">Aide et tutorat</a>
+      <a th:href="@{/inscription}" th:if="${#session.getAttribute('user') == null}" class="Nav" th:text="#{label.inscriptionMenu}">Inscription</a>
+      <a th:href="${#session.getAttribute('user') != null} ? @{/deconnexion} : @{/connexion}"
+         class="Nav"
+         th:text="${#session.getAttribute('user') != null} ? #{label.deconnexionMenu} : #{label.connexionMenu}">
+        Connexion
+      </a>
+
+    </div>
+    <div class="language-links">
+      <a href="?lang=en" th:text="#{label.en}">Anglais</a>
+      <a href="?lang=fr" th:text="#{label.fr}">Français</a>
+    </div>
+  </nav>
+</div>
+</body>
+</html>
