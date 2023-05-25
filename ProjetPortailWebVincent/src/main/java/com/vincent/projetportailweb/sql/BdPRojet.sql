@@ -266,7 +266,7 @@ INSERT INTO tbl_projet VALUES (
                                   1,
                                   3,
                                   FALSE,
-                                  "Video1",
+                                  "projet3",
                                   "https://git.dti.crosemont.quebec/jcormier1/omgthisissocool"
                               );
 INSERT INTO tbl_projet VALUES (
@@ -277,7 +277,7 @@ INSERT INTO tbl_projet VALUES (
                                   2,
                                   4,
                                   FALSE,
-                                  "Video2",
+                                  "projet4",
                                   "https://git.dti.crosemont.quebec/jcormier1/testtesttesttest"
                               );
 

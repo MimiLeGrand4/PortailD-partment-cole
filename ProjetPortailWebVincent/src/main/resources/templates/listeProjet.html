@@ -40,7 +40,7 @@
     <hr>
     <li><a th:href="@{/listeProjet}" class="Nav" th:text="#{label.projetEtudiant}">Projets des étudiants</a></li>
     <hr>
-    <li><a href="#">Documents des professeurs</a></li>
+    <li><a th:href="@{/listeProfNotes}" class="Nav" th:text="#{label.documentProf}">Documents des professeurs</a></li>
 
     <hr>
     <li><a th:href="@{/listeUtilisateurs}" class="Nav" th:text="#{label.listeUtilisateurs}">Liste des utilisateurs</a></li>
@@ -70,7 +70,7 @@
       <td th:text="${projet.profil_id.nom}"></td>
       <td th:text="${projet.user_id.email}"></td>
       <td th:text="${projet.statut}"></td>
-      <td th:text="${projet.urlVideoPresentation}"></td>
+      <td><video th:src="${'images/video/'+projet.urlVideoPresentation+'.mp4'}" width="300px" height="120px" controls preload="none"></video></td>
       <td><a th:href="${projet.urlProjetGit}" target="_blank" th:text="${projet.urlProjetGit}"></a></td>
     </tr>
     </tbody>
