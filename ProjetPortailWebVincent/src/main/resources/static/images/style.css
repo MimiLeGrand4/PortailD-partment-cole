@@ -15,6 +15,20 @@
 html{
     height:100%;
 }
+.message-disparait {
+    transition: opacity 1s;
+    animation: fadeOut 1s forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
 
 .container{
     min-height: 100%;

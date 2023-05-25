@@ -41,7 +41,6 @@
     <li><a th:href="@{/listeProjet}" class="Nav" th:text="#{label.projetEtudiant}">Projets des étudiants</a></li>
     <hr>
     <li><a th:href="@{/listeProfNotes}" class="Nav" th:text="#{label.documentProf}">Documents des professeurs</a></li>
-
     <hr>
     <li><a th:href="@{/listeUtilisateurs}" class="Nav" th:text="#{label.listeUtilisateurs}">Liste des utilisateurs</a></li>
   </ul>
@@ -52,14 +51,14 @@
   <table class="my-table" data-table>
     <thead>
     <tr>
-      <th>Nom</th>
-      <th>Description</th>
-      <th>Session</th>
-      <th>Profil</th>
-      <th>Créateur</th>
-      <th>Statut</th>
-      <th>Présentation</th>
-      <th>Lien projet</th>
+      <th th:text="#{label.table.header.name}">Nom</th>
+      <th th:text="#{label.table.header.description}">Description</th>
+      <th th:text="#{label.table.header.session}">Session</th>
+      <th th:text="#{label.table.header.profile}">Profil</th>
+      <th th:text="#{label.table.header.creator}">Créateur</th>
+      <th th:text="#{label.table.header.status}">Statut</th>
+      <th th:text="#{label.table.header.status}">Présentation</th>
+      <th th:text="#{label.table.header.projectLink}">Lien projet</th>
     </tr>
     </thead>
     <tbody>

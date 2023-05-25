@@ -23,12 +23,19 @@
     <h1 th:text="#{label.deptInfo}">Département des Techniques de l'Informatique</h1>
 
   </div>
+
+  <div th:include="navigationMenu :: #menuNavigation" style="margin: 0 auto; text-align: center;"></div>
   <div th:if="${not #strings.isEmpty(nomUtilisateur)}">
     <marquee>Bienvenue Mr/Mme <span class="rouge" th:text="${nomUtilisateur + ' ' + prenomUtilisateur}"></span> au Collège de Rosemont</marquee>
   </div>
-  <div th:include="navigationMenu :: #menuNavigation"></div>
+  <div th:if="${messageInscription}" id="messageInscription" class="alert alert-success">
+    <p th:text="${messageInscription}"></p>
+  </div>
+
+
 </header>
 <main class="page_principal">
+
 
 
   <section class="centrale">
@@ -52,3 +59,15 @@
 
 </body>
 </html>
+<script>
+  // Fonction pour masquer le message d'inscription après un certain délai (en millisecondes)
+  function masquerMessageInscription() {
+    var messageInscription = document.getElementById('messageInscription');
+    if (messageInscription) {
+      messageInscription.classList.add('message-disparait');
+    }
+  }
+
+  // Appel de la fonction après un délai de 3000 millisecondes (3 secondes)
+  setTimeout(masquerMessageInscription, 3000);
+</script>

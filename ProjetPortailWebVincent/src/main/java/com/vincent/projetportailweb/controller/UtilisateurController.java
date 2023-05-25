@@ -31,7 +31,7 @@ public class UtilisateurController {
     @GetMapping("/utilisateurs/new")
     public String afficherFormulaireUtilisateur(Model model){
         Utilisateur utilisateur = new Utilisateur();
-       // utilisateur.setActive(true);
+        // utilisateur.setActive(true);
 
         model.addAttribute("utilisateur", utilisateur);
         List<AccountType> listeRole = service.afficherRoles();
@@ -69,29 +69,30 @@ public class UtilisateurController {
 
 
 
-//    @GetMapping("/notedecours")
+
+    //    @GetMapping("/notedecours")
 //    public String afficherUtilisateur(Model model){
 //        Iterable<Fichier> listfichiers = service.afficherNoteDeCours();
 //        model.addAttribute("listfichiers",listfichiers);
 //        return "notedecours";
 //    }
-@GetMapping("/listeUtilisateurs/edit/{id}")
-public String editUtilisateur(@PathVariable(name = "id") Integer id,RedirectAttributes redirectAttributes, Model model) {
-    try {
-        Utilisateur utilisateur = service.get(id);
-        List<AccountType> listeRole = service.afficherRoles();
+    @GetMapping("/listeUtilisateurs/edit/{id}")
+    public String editUtilisateur(@PathVariable(name = "id") Integer id,RedirectAttributes redirectAttributes, Model model) {
+        try {
+            Utilisateur utilisateur = service.get(id);
+            List<AccountType> listeRole = service.afficherRoles();
 
-        model.addAttribute("pageTitle", "Editer Utilisateur (ID: " + id + ")");
+            model.addAttribute("pageTitle", "Editer Utilisateur (ID: " + id + ")");
 
-        model.addAttribute("listeRoles", listeRole);
-        model.addAttribute("utilisateur", utilisateur);
-        return "inscription";
-    } catch (UtilisateurNotFoundException e) {
-        //  e.printStackTrace();
-        // redirectAttributes.addFlashAttribute("message", e.getMessage());
-        redirectAttributes.addFlashAttribute("message", "On ne peut pas trouver un utilisateur avec l'id " + id);
-        return "redirect:/listeUtilisateurs";
+            model.addAttribute("listeRoles", listeRole);
+            model.addAttribute("utilisateur", utilisateur);
+            return "inscription";
+        } catch (UtilisateurNotFoundException e) {
+            //  e.printStackTrace();
+            // redirectAttributes.addFlashAttribute("message", e.getMessage());
+            redirectAttributes.addFlashAttribute("message", "On ne peut pas trouver un utilisateur avec l'id " + id);
+            return "redirect:/listeUtilisateurs";
+        }
+
     }
-
-}
 }

@@ -41,7 +41,6 @@
     <li><a th:href="@{/listeProjet}" class="Nav" th:text="#{label.projetEtudiant}">Projets des étudiants</a></li>
     <hr>
     <li><a th:href="@{/listeProfNotes}" class="Nav" th:text="#{label.documentProf}">Documents des professeurs</a></li>
-
     <hr>
     <li><a th:href="@{/listeUtilisateurs}" class="Nav" th:text="#{label.listeUtilisateurs}">Liste des utilisateurs</a></li>
   </ul>
@@ -50,15 +49,15 @@
 <div class="table-container">
 
   <form th:action="@{/recherche/projet}" class="form-inline m-3">
-
-
-    Recherche un projet:&nbsp;
+    <label th:text="#{label.rechercheProjet}">Recherche un projet:</label>
+    &nbsp;
     <input type="search" name="keyword" th:value="${keyword}" class="form-control"/>
     &nbsp;&nbsp;
-    <button type="submit" class="btn btn-primary">
+    <button type="submit" class="btn btn-primary" th:text="#{label.recherche}">
       Recherche
     </button>
   </form>
+
 
 
 
