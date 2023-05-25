@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+  <title>Chat</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link th:href="@{/images/style.css}" rel="stylesheet" />
+
+  <style>
+    /* Vous pouvez ajouter votre CSS ici si nécessaire */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+
+
+    #logo {
+      height: 60px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-top: 10px;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    section {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    #messageInput {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button[type="submit"] {
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+
+
+    #pied {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="banniere">
+    <img id="logo" src="images/logo.png" alt="logo" />
+    <h1 th:text="#{label.deptInfo}">Département des Techniques de l'Informatique</h1>
+  </div>
+  <div th:include="navigationMenu :: #menuNavigation"></div>
+</header>
+
+<main class="page_principal">
+  <section>
+    <h1>Chat</h1>
+
+    <!-- Afficher les messages existants -->
+    <div th:each="message : ${messages}">
+      <p th:if="${message.utilisateur != null}" th:text="${message.utilisateur.nom + ' : ' + message.contenu}"></p>
+      <p th:unless="${message.utilisateur != null}" th:text="'Invité : ' + ${message.contenu}"></p>
+    </div>
+
+    <!-- Formulaire pour envoyer un nouveau message -->
+    <form id="messageForm" action="/chat/envoyer-message" method="post">
+      <input type="text" id="messageInput" name="message" required>
+      <button type="submit">Envoyer</button>
+    </form>
+  </section>
+</main>
+
+<footer class="footer">
+  <div th:include="pied :: #pied"></div>
+</footer>
+
+</body>
+</html>

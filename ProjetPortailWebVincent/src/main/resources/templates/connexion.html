@@ -30,7 +30,7 @@ and open the template in the editor.
   <div th:if="${not #strings.isEmpty(nomUtilisateur)}">
     <marquee>Salut Mr/Mme <span class="rouge" th:text="${nomUtilisateur + ' ' + prenomUtilisateur}"></span> au Collège de Rosemont</marquee>
   </div>
-  <div th:include="navigationMenu :: #menuNavigation"></div>
+  <div th:include="navigationMenu :: #menuNavigation" style="margin-top: 40px;"></div>
 </header>
 
 

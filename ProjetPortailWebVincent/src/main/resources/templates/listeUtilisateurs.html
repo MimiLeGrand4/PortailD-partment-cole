@@ -27,7 +27,18 @@
     <h1>Département des Techniques de l'Informatique</h1>
 
   </div>
-  <div th:include="navigationMenu :: #menuNavigation"></div>
+  <div>
+    <nav class="navbarDep">
+      <div id="navid">
+        <a th:href="@{/}" th:text="#{label.accueilMenu}" class="Nav">Accueil</a>
+        <a th:href="@{/espaceEP}" class="Nav" th:text="#{label.espaceEPMenu}">Espace EP</a>
+        <a th:href="@{/tutorat}" class="Nav" th:text="#{label.aideTutoratMenu}">Aide et tutorat</a>
+        <a th:href="@{/inscription}" class="Nav" th:text="#{label.inscriptionMenu}">Inscription</a>
+        <a th:href="@{/connexion}" class="Nav" th:text="#{label.connexionMenu}">Connexion</a>
+      </div>
+    </nav>
+
+  </div>
 </header>
 
 
@@ -40,7 +51,7 @@
     <hr>
     <li><a th:href="@{/listeProjet}" class="Nav" th:text="#{label.projetEtudiant}">Projets des étudiants</a></li>
     <hr>
-    <li><a href="#">Documents des professeurs</a></li>
+    <li><a th:href="@{/listeProfNotes}" class="Nav" >Documents des professeurs</a></li>
     <hr>
     <li><a th:href="@{/listeUtilisateurs}" class="Nav" th:text="#{label.listeUtilisateurs}">Liste des utilisateurs</a></li>
   </ul>
@@ -94,9 +105,9 @@
       window.location.href = "/listeUtilisateurs/edit/" + id;
     });
 
-  function clearFilter() {
-    window.location = "[[@{/utilisateurs}]]";
-  }
+    function clearFilter() {
+      window.location = "[[@{/utilisateurs}]]";
+    }
 
 </script>
 </body>

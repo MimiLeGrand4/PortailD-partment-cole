@@ -1,7 +1,10 @@
 package com.vincent.projetportailweb.controller;
 
 import com.vincent.projetportailweb.entities.AccountType;
+import com.vincent.projetportailweb.entities.Message;
 import com.vincent.projetportailweb.entities.Utilisateur;
+import com.vincent.projetportailweb.repos.MessageRepository;
+import com.vincent.projetportailweb.service.ChatService;
 import com.vincent.projetportailweb.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -22,14 +26,27 @@ public class AppController {
     @Autowired
     private UtilisateurService utilisateurService;
     @GetMapping("/")
-    public String pageAccueil(Model model, HttpSession session) {
+    public String pageAccueil(Model model, HttpSession session,RedirectAttributes redirectAttributes) {
+        String messageInscription = (String) redirectAttributes.getAttribute("messageInscription");
+        if (messageInscription != null) {
+            model.addAttribute("messageInscription", messageInscription);
+        }
+
+
         Utilisateur utilisateur = (Utilisateur) session.getAttribute("user");
         if (utilisateur != null) {
             model.addAttribute("nomUtilisateur", utilisateur.getNom());
             model.addAttribute("prenomUtilisateur", utilisateur.getPrenom());
+        } else {
+            model.addAttribute("nomUtilisateur", "Invité");
+            model.addAttribute("prenomUtilisateur", "Invité");
         }
         return "index";
     }
+
+    @Autowired
+    private MessageRepository messageRepository;
+
 
 
     @GetMapping("/espaceEP")
@@ -52,10 +69,7 @@ public class AppController {
         return "espaceEP_Visiteur";
     }
 
-    @GetMapping("/tutorat")
-    public String pageTutorat() {
-        return "tutorat";
-    }
+
 
 
 
@@ -67,17 +81,27 @@ public class AppController {
         model.addAttribute("utilisateur", utilisateur);
         List<AccountType> listeRoles = utilisateurService.afficherRoles();
         model.addAttribute("listeRoles", listeRoles);
+        model.addAttribute("inscriptionReussie", false); // Par défaut, l'inscription n'est pas réussie
         model.addAttribute("pageTitle", "Inscription");
         return "inscription";
     }
     @PostMapping("/inscription")
-    public String enregistrerUtilisateur(@ModelAttribute Utilisateur utilisateur, @RequestParam("utilisateur.accountType.id") int accountTypeId) {
+    public String enregistrerUtilisateur(@ModelAttribute Utilisateur utilisateur, @RequestParam("utilisateur.accountType.id") int accountTypeId, Model model, RedirectAttributes redirectAttributes) {
         AccountType accountType = new AccountType();
         accountType.setId(accountTypeId);
         utilisateur.setAccountType(accountType);
 
         // Ajoutez ici la logique pour enregistrer l'utilisateur dans la base de données
         utilisateurService.enregistrerUtilisateur(utilisateur);
+
+
+        redirectAttributes.addFlashAttribute("messageInscription", "Inscription réussie !");
+
+
+
+
+
+
 
         // Redirigez l'utilisateur vers une autre page (par exemple, une page de confirmation)
         return "redirect:/";
@@ -169,6 +193,78 @@ public class AppController {
     public String recherche() {
         return "recherche";
     }
+    // Ajoutez cette méthode dans votre contrôleur
+
+    // Ajoutez cette méthode dans votre contrôleur
+
+    @PostMapping("/forum/creer-discussion")
+    public String creerDiscussion(@RequestParam("titre") String titre, @RequestParam("message") String message) {
+        // Ajoutez ici la logique pour créer une nouvelle discussion dans le forum
+        // en utilisant le titre et le message fournis
+
+        // Redirigez l'utilisateur vers la page du forum ou une autre page appropriée
+        return "redirect:/forum";
+    }
+    // Ajoutez cette méthode dans votre contrôleur
+    // Ajoutez ici la logique pour traiter l'envoi d'un nouveau message dans le chat
+// en utilisant le message fourni
+
+    // Supposez que vous ayez une classe de service appelée ChatService pour gérer les opérations liées au chat.
+// Injectez cette classe de service dans votre contrôleur.
+    @Autowired
+    private ChatService chatService;
+
+
+
+
+
+
+    @GetMapping("/chat")
+    public String pageChat(Model model, HttpSession session) {
+        Utilisateur utilisateur = (Utilisateur) session.getAttribute("user");
+        if (utilisateur == null) {
+            // Aucun utilisateur n'est connecté, donc on le redirige vers la page de connexion
+            return "redirect:/connexion";
+        }
+
+        model.addAttribute("utilisateur", utilisateur);
+
+        List<Message> messages = chatService.getMessagesWithUser(); // Récupérer tous les messages avec les utilisateurs associés
+        model.addAttribute("messages", messages);
+
+        return "chat";
+    }
+
+
+
+    @PostMapping("/chat/envoyer-message")
+    public String envoyerMessage(@RequestParam("message") String message, HttpSession session) {
+        // Récupérer l'utilisateur connecté à partir de la session
+        Utilisateur utilisateur = (Utilisateur) session.getAttribute("user");
+        if (utilisateur != null) {
+
+            // Ajouter le message dans le service
+            chatService.envoyerMessage(utilisateur, message);
+        } else {
+            // Si aucun utilisateur n'est connecté, créer un utilisateur invité avec le nom "Invité"
+            utilisateur = new Utilisateur();
+            utilisateur.setNom("Invité");
+            // Ajouter le message avec l'utilisateur invité dans le service
+            chatService.envoyerMessage(utilisateur, message);
+        }
+        // Rediriger l'utilisateur vers la page du chat ou une autre page appropriée
+        return "redirect:/chat";
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 }

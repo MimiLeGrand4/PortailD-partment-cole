@@ -17,6 +17,7 @@
          th:text="${#session.getAttribute('user') != null} ? #{label.deconnexionMenu} : #{label.connexionMenu}">
         Connexion
       </a>
+      <a th:href="@{/chat}" class="Nav">Chat</a>
 
     </div>
     <div class="language-links">
