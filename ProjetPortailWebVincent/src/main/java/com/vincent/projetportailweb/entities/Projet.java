@@ -22,7 +22,16 @@ public class Projet implements Serializable {
     @ManyToOne
     @JoinColumn(name ="user_id")
     private Utilisateur user_id;
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] data;
 
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
+    }
     private Boolean statut;
     private String description;
     @Column(length = 100)
