@@ -44,6 +44,7 @@ CREATE TABLE tbl_projet (
                             user_id int,
                             statut Boolean,
                             url_video_presentation varchar(100),
+                            url_projet_git varchar(255),
 
                             PRIMARY KEY (id),
                             FOREIGN KEY (user_id) REFERENCES tbl_user(id),
@@ -265,7 +266,8 @@ INSERT INTO tbl_projet VALUES (
                                   1,
                                   3,
                                   FALSE,
-                                  "Video1"
+                                  "Video1",
+                                  "https://git.dti.crosemont.quebec/jcormier1/omgthisissocool"
                               );
 INSERT INTO tbl_projet VALUES (
                                   2,
@@ -275,7 +277,8 @@ INSERT INTO tbl_projet VALUES (
                                   2,
                                   4,
                                   FALSE,
-                                  "Video2"
+                                  "Video2",
+                                  "https://git.dti.crosemont.quebec/jcormier1/testtesttesttest"
                               );
 
 INSERT INTO tbl_fichier VALUES(

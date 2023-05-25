@@ -28,10 +28,13 @@ public class Projet implements Serializable {
     @Column(length = 100)
     private String urlVideoPresentation;
 
+    @Column(length = 255)
+    private String urlProjetGit;
+
     public Projet() {
     }
 
-    public Projet(String nom, Profil profil, Session session,Utilisateur user, String description, String urlVideoPresentation, Boolean statut) {
+    public Projet(String nom, Profil profil, Session session,Utilisateur user, String description, String urlVideoPresentation, Boolean statut, String urlProjetGit) {
         this.nom = nom;
         this.profil_id = profil;
         this.session_id = session;
@@ -39,6 +42,7 @@ public class Projet implements Serializable {
         this.description = description;
         this.urlVideoPresentation = urlVideoPresentation;
         this.statut=statut;
+        this.urlProjetGit=urlProjetGit;
     }
 
     public int getId() {
@@ -103,6 +107,14 @@ public class Projet implements Serializable {
 
     public void setUrlVideoPresentation(String urlVideoPresentation) {
         this.urlVideoPresentation = urlVideoPresentation;
+    }
+
+    public String getUrlProjetGit() {
+        return urlProjetGit;
+    }
+
+    public void setUrlProjetGit(String urlProjetGit) {
+        this.urlProjetGit = urlProjetGit;
     }
 
     public String afficherTitreDesColonnes() {

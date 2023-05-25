@@ -59,6 +59,7 @@
       <th>Créateur</th>
       <th>Statut</th>
       <th>Présentation</th>
+      <th>Lien projet</th>
     </tr>
     </thead>
     <tbody>
@@ -70,6 +71,7 @@
       <td th:text="${projet.user_id.email}"></td>
       <td th:text="${projet.statut}"></td>
       <td th:text="${projet.urlVideoPresentation}"></td>
+      <td><a th:href="${projet.urlProjetGit}" target="_blank" th:text="${projet.urlProjetGit}"></a></td>
     </tr>
     </tbody>
   </table>
