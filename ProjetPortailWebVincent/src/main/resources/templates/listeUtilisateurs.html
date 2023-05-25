@@ -66,9 +66,9 @@
     <tbody>
     <tr th:each="user : ${listUtilisateurs}" th:id="${user.id}">
       <td th:text="${user.id}"></td>
-      <td th:text="${user.email}"></td>
       <td th:text="${user.nom}"></td>
       <td th:text="${user.prenom}"></td>
+      <td th:text="${user.email}"></td>
       <td th:text="${user.accountType.nom}"></td>
 
 

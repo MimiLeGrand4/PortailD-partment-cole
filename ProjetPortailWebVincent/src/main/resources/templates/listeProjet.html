@@ -71,7 +71,7 @@
       <td th:text="${projet.profil_id.nom}"></td>
       <td th:text="${projet.user_id.email}"></td>
       <td th:text="${projet.statut}"></td>
-      <td><video th:src="${'images/video/'+projet.urlVideoPresentation+'.mp4'}" width="300px" height="120px" controls preload="none"></video></td>
+      <td><video th:src="${'images/video/'+projet.urlVideoPresentation+'.mp4'}" width="300px" height="120px" controls preload="auto"></video></td>
       <td><a th:href="${projet.urlProjetGit}" target="_blank" th:text="${projet.urlProjetGit}"></a></td>
     </tr>
     </tbody>
