@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <title>Afficher Notes de Cours</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script
+            src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js">
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link th:href="@{/images/style.css}" rel="stylesheet" />
+    <style>
+
+
+    </style>
+
+</head>
+<body>
+
+
+<header>
+    <div class="banniere">
+        <img id="logo" src="images/logo.png" alt="logo" />
+        <h1>Département des Techniques de l'Informatique</h1>
+
+    </div>
+    <div>
+        <nav class="navbarDep">
+            <div id="navid">
+                <a th:href="@{/}" th:text="#{label.accueilMenu}" class="Nav">Accueil</a>
+                <a th:href="@{/espaceEP}" class="Nav" th:text="#{label.espaceEPMenu}">Espace EP</a>
+                <a th:href="@{/tutorat}" class="Nav" th:text="#{label.aideTutoratMenu}">Aide et tutorat</a>
+                <a th:href="@{/inscription}" class="Nav" th:text="#{label.inscriptionMenu}">Inscription</a>
+                <a th:href="@{/connexion}" class="Nav" th:text="#{label.connexionMenu}">Connexion</a>
+            </div>
+        </nav>
+
+    </div>
+</header>
+
+
+<div class="menuClass">
+    <p class="menu-label" th:text="#{label.menu}">Menu</p>
+</div>
+<div class="sidebar">
+    <ul>
+        <li><a th:href="@{/recherche}" th:text="#{label.recherche}">Recherche</a></li>
+        <hr>
+        <li><a th:href="@{/listeProjet}" class="Nav" th:text="#{label.projetEtudiant}">Projets des étudiants</a></li>
+        <hr>
+        <li><a th:href="@{/listeProfNotes}" class="Nav" th:text="#{label.documentProf}">Documents des professeurs</a></li>
+        <hr>
+        <li><a th:href="@{/listeUtilisateurs}" class="Nav" th:text="#{label.listeUtilisateurs}">Liste des utilisateurs</a></li>
+    </ul>
+</div>
+    <div class="container my-5">
+
+        <form method="POST" action="/listeProfNotes" enctype="multipart/form-data">
+            <div class="form-group row">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                    </div>
+                    <div class="custom-file">
+                        <input name="file" type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+
+                        <label class="custom-file-label" for="inputGroupFile01">Choose
+                            file</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <input class="btn btn-primary" type="submit" value="Submit" />
+            </div>
+            <div class="form-group row">
+                <div th:if="${warning}">
+                    <div class="alert alert-warning" role="alert">
+                        <h4 th:text="${warning}" />
+                    </div>
+                </div>
+                <div th:if="${message}">
+                    <div class="alert alert-success" role="alert">
+                        <h4 th:text="${message}" />
+                    </div>
+                </div>
+                <div th:if="${error}">
+                    <div class="alert alert-danger" role="alert">
+                        <h4 th:text="${error}" />
+                    </div>
+                </div>
+            </div>
+        </form>
+        <table class="my-table" data-table>
+            <thead>
+            <tr>
+                <th>File Name</th>
+                <th>Download</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="list : ${list}">
+                <td th:text="${list.nom}"></td>
+                <td><a
+                        th:href="@{http://localhost:8080/listeProfNotes/download/{name}(name=${list.nom})}">
+                    <button type="button" class="btn btn-success btn-sm">Download</button>
+                </a></td>
+
+                <td>
+                    <a class="fa-solid fa-trash fa-2x icon-dark"
+                       th:href="@{'/listeProfNotes/delete/' + ${list.id}}"
+                       th:id="${list.id}"
+                       title="Supprimer cet fichier"></a>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // When a file is selected, update the label text with the file name
+            $('#inputGroupFile01').on('change', function() {
+                var fileName = $(this).val().split('\\').pop();
+                $(this).next('.custom-file-label').addClass("selected").html(fileName);
+            });
+        });
+
+
+        f
+    </script>
+
+    </body>
+    </html>
