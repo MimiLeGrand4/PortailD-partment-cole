@@ -34,18 +34,7 @@
         <h1>Département des Techniques de l'Informatique</h1>
 
     </div>
-    <div>
-        <nav class="navbarDep">
-            <div id="navid">
-                <a th:href="@{/}" th:text="#{label.accueilMenu}" class="Nav">Accueil</a>
-                <a th:href="@{/espaceEP}" class="Nav" th:text="#{label.espaceEPMenu}">Espace EP</a>
-                <a th:href="@{/tutorat}" class="Nav" th:text="#{label.aideTutoratMenu}">Aide et tutorat</a>
-                <a th:href="@{/inscription}" class="Nav" th:text="#{label.inscriptionMenu}">Inscription</a>
-                <a th:href="@{/connexion}" class="Nav" th:text="#{label.connexionMenu}">Connexion</a>
-            </div>
-        </nav>
-
-    </div>
+    <div th:include="navigationMenu :: #menuNavigation" style="margin-top: 40px;"></div>
 </header>
 
 
@@ -69,18 +58,17 @@
             <div class="form-group row">
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                        <span class="input-group-text" id="inputGroupFileAddon01" th:text="#{label.upload}">Importer</span>
                     </div>
                     <div class="custom-file">
                         <input name="file" type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-
-                        <label class="custom-file-label" for="inputGroupFile01">Choose
-                            file</label>
+                        <label class="custom-file-label" for="inputGroupFile01" th:text="#{label.chooseAFile}">Choisir
+                            un fichier</label>
                     </div>
                 </div>
             </div>
             <div class="form-group row">
-                <input class="btn btn-primary" type="submit" value="Submit" />
+                <input class="btn btn-primary" type="submit" th:value="#{label.submit}" />
             </div>
             <div class="form-group row">
                 <div th:if="${warning}">
@@ -103,9 +91,9 @@
         <table class="my-table" data-table>
             <thead>
             <tr>
-                <th>File Name</th>
-                <th>Download</th>
-                <th>Delete</th>
+                <th th:text="#{label.fileName}">File Name</th>
+                <th th:text="#{label.download}">Download</th>
+                <th th:text="#{label.delete}">Delete</th>
             </tr>
             </thead>
             <tbody>

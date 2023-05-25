@@ -28,18 +28,7 @@
     <h1>Département des Techniques de l'Informatique</h1>
 
   </div>
-  <div>
-    <nav class="navbarDep">
-      <div id="navid">
-        <a th:href="@{/}" th:text="#{label.accueilMenu}" class="Nav">Accueil</a>
-        <a th:href="@{/espaceEP}" class="Nav" th:text="#{label.espaceEPMenu}">Espace EP</a>
-        <a th:href="@{/tutorat}" class="Nav" th:text="#{label.aideTutoratMenu}">Aide et tutorat</a>
-        <a th:href="@{/inscription}" class="Nav" th:text="#{label.inscriptionMenu}">Inscription</a>
-        <a th:href="@{/connexion}" class="Nav" th:text="#{label.connexionMenu}">Connexion</a>
-      </div>
-    </nav>
-
-  </div>
+  <div th:include="navigationMenu :: #menuNavigation" style="margin-top: 40px;"></div>
 </header>
 
 
@@ -58,19 +47,19 @@
   </ul>
 </div>
 <div class="text-center">
-  <a class="btn btn-primary" th:href="@{/inscription}">Ajouter un nouvel utilisateur</a>
+  <a class="btn btn-primary" th:href="@{/inscription}" th:text="#{label.add}">Ajouter un nouvel utilisateur</a>
 </div>
 <div class="table-container">
 
   <table class="my-table" data-table>
     <thead>
     <tr>
-      <th>ID utilisateur</th>
-      <th>Email</th>
-      <th>Nom</th>
-      <th>Prenom</th>
-      <th>Role</th>
-      <th>Action</th>
+      <th th:text="#{label.userId}">ID utilisateur</th>
+      <th th:text="#{label.userName}">Email</th>
+      <th th:text="#{label.userPrenom}">Nom</th>
+      <th th:text="#{label.userEmail}">Prenom</th>
+      <th th:text="#{label.userRole}">Role</th>
+      <th th:text="#{label.Action}">Action</th>
 
     </tr>
     </thead>
