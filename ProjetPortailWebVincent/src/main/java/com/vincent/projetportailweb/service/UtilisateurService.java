@@ -2,7 +2,6 @@ package com.vincent.projetportailweb.service;
 
 
 import com.vincent.projetportailweb.entities.AccountType;
-import com.vincent.projetportailweb.entities.Fichier;
 import com.vincent.projetportailweb.entities.Utilisateur;
 import com.vincent.projetportailweb.repos.FichierRepository;
 import com.vincent.projetportailweb.repos.RoleRepository;

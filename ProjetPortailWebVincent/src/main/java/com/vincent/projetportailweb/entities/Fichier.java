@@ -10,10 +10,24 @@ public class Fichier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(length = 30)
+    @Column(length = 200)
     private String nom;
+
     @Column(length = 100)
     private String contenu;
+
+
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] data;
+
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
+    }
+
     @ManyToOne
     @JoinColumn(name="user_id")
     private Utilisateur user_id;
@@ -21,10 +35,21 @@ public class Fichier {
     public Fichier() {
     }
 
-    public Fichier(String nom, String contenu,Utilisateur user_id) {
+
+
+    public Fichier(String nom) {
+        this.nom = nom;
+    }
+
+    public Fichier(String nom, String contenu, Utilisateur user_id) {
         this.nom = nom;
         this.contenu = contenu;
         this.user_id = user_id;
+    }
+
+    public Fichier(String nom, String contenu) {
+        this.nom = nom;
+        this.contenu = contenu;
     }
 
     public int getId() {
